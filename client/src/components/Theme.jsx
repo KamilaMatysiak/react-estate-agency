@@ -20,9 +20,7 @@ const theme = createTheme({
       white: "#fff",
       secondaryWhite: '#ddd'
     },
-    background: { 
-      main: '#F8F8F8' 
-    }
+    background: '#F8F8F8', 
   },
 
   shape: {
@@ -31,6 +29,10 @@ const theme = createTheme({
 
   typography: {
     fontFamily: 'Montserrat',
+    display: {
+      fontSize: 72,
+      fontWeight: 800,
+    },
     h1b: {
       fontSize: 61,
       fontWeight: 700,

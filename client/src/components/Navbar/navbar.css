@@ -1,12 +1,14 @@
 .nav {
     height: 70px;
-    width: 100%;
+    width: 96%;
+    margin: 0 2%;
     background: none;
     color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: absolute;
+    z-index: 999;
 }
 
 img {
