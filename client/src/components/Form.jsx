@@ -1,8 +1,36 @@
 import React from 'react'
-
+import { Box, TextField, Button } from '@mui/material'
+import theme from './Theme'
+import { ThemeProvider } from '@mui/material/styles';
 const Form = () => {
   return (
-    <div>Form</div>
+    <ThemeProvider theme={theme}>
+      <Box sx={{backgroundColor:"text.white", padding: 2}}>
+        <TextField 
+          variant="outlined" 
+          label="Full Name"
+          id="outlined-required"
+          required 
+          fullWidth
+          margin='dense'/>
+        <TextField 
+          variant="outlined" 
+          label="E-mail Address"
+          id="outlined-required"
+          required 
+          fullWidth
+          margin='dense'/>
+        <TextField 
+          variant="outlined" 
+          label="Message"
+          rows={3}
+          multiline
+          id="outlined-textarea"
+          fullWidth
+          margin='dense'/>
+        <Button fullWidth variant="contained">Send Message</Button>
+      </Box>
+    </ThemeProvider>
   )
 }
 
