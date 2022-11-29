@@ -2,7 +2,6 @@ import React from 'react'
 import theme from './Theme'
 import { ThemeProvider } from '@mui/material/styles';
 import {Card, CardMedia, CardContent, CardActions, Typography, Button } from '@mui/material';
-import VillaOutlinedIcon from '@mui/icons-material/VillaOutlined';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import KitchenOutlinedIcon from '@mui/icons-material/KitchenOutlined';
 import BathtubOutlinedIcon from '@mui/icons-material/BathtubOutlined';
@@ -46,14 +45,14 @@ const EstateCard = () => {
                     <div className='centerRowFlex'> 
                         <KitchenOutlinedIcon 
                             sx= {{margin: '2px'}}
-                            color="text.secondaryBlack" f
-                            ontSize="small"/> 
+                            color="text.secondaryBlack"
+                            fontSize="small"/> 
                         <Typography color="text.secondaryBlack" variant="sm">100 sqft</Typography> 
                     </div>
                 </div>
                 <CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
                     <Typography variant="xlm">$11 290 500</Typography>
-                    <Button variant="contained">View Details</Button>
+                    <Button variant="contained" sx={{backgroundColor:'primary.main', boxShadow: 'none'}}>View Details</Button>
                 </CardActions>
             </CardContent>
             

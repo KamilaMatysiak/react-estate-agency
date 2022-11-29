@@ -8,6 +8,10 @@
 
 }
 
+body {
+    background-color: #f8f8f8;
+}
+
 .columnFlex {
     display: flex;
     flex-direction: column;
@@ -22,6 +26,12 @@
 .spaceAroundFlex {
     display: flex;
     justify-content: space-around;
+    align-items: center;
+}
+
+.spaceBetweenFlex {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -114,3 +124,13 @@
     z-index: 2;
 }
 
+.wave {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.debug {
+    background-color: red;
+    border: 2px solid green;
+}

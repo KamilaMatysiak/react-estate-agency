@@ -1,10 +1,9 @@
 import React from 'react'
-import VillaOutlinedIcon from '@mui/icons-material/VillaOutlined';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
-import { Container, Card, Button, Divider, Rating, Typography, Box } from '@mui/material'
+import { Container, Button, Divider, Typography, Box } from '@mui/material'
 import theme from '../Theme'
 import { ThemeProvider } from '@mui/material/styles';
 
@@ -24,8 +23,8 @@ const Home = () => {
     <ThemeProvider theme={theme}>
       <Container maxWidth={false} disableGutters>
       <div className="bannerBackground">
-        <img className='wave' src={wave}/>
-        <img className="building" src={image}/>
+        <img className='wave' alt='banner' src={wave}/>
+        <img className="building" alt='building' src={image}/>
       </div>
         <div className='searchForm'>
           <SearchForm/>
@@ -39,7 +38,7 @@ const Home = () => {
 
         
         
-        <Box sx={{width: '100%', minHeight: 200, backgroundColor:'none', padding: '72px 0'}}>
+        <Box sx={{width: '100%', minHeight: 200, padding: '72px 0'}}>
           <div className='p48 maxWidthLg'>
           <Typography variant="h2m" color="text.black" >Why choose us</Typography>
           </div>

@@ -3,7 +3,6 @@
     width: 96%;
     margin: 0 2%;
     background: none;
-    color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -23,4 +22,14 @@ img {
 
 .nav ul li {
     padding: 25px;
+}
+
+.nav-light {
+    color: #fff;
+    background: red;
+}
+
+.nav-dark {
+    color: #333;
+    background: white;
 }

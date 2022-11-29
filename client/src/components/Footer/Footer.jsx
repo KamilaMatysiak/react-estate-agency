@@ -5,8 +5,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Box, Typography } from '@mui/material'
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import { Link } from 'react-router-dom';
-import { textAlign } from '@mui/system';
-import { green } from '@mui/material/colors';
+import logo from '../../data/images/logoWhite.svg'
+
 
 const Footer = () => {
   return (
@@ -14,7 +14,7 @@ const Footer = () => {
       <Box sx={{width: '100%', backgroundColor: "primary.main", padding: '32px 0'}}>
         <div className='footer'>
           <div className='footerlogo'>
-            <img alt="Real Estate"/>
+            <img height="50px" src={logo} alt="Real Estate"/>
             <Typography variant="xs">Find the house that fit 
               you the best and won’t ruin your budget!</Typography>
               <div>
@@ -26,9 +26,9 @@ const Footer = () => {
           <div className='spaceAroundFlex' style={{alignItems: "flex-start", width: '40%'}}>
             <ul >
               <li><Typography variant="mdm">About</Typography></li>
-              <li><Link style={{textDecoration: "none"}} to="/"><Typography variant="sm" color="text.white">About</Typography></Link></li>
-              <li><Link style={{textDecoration: "none"}} to="/"><Typography variant="sm" color="text.white">Estates</Typography></Link></li>
-              <li><Link style={{textDecoration: "none"}} to="/"><Typography variant="sm" color="text.white">Contact</Typography></Link></li>
+              <li><Link style={{textDecoration: "none"}} to="/about"><Typography variant="sm" color="text.white">About</Typography></Link></li>
+              <li><Link style={{textDecoration: "none"}} to="/estates"><Typography variant="sm" color="text.white">Estates</Typography></Link></li>
+              <li><Link style={{textDecoration: "none"}} to="/contact"><Typography variant="sm" color="text.white">Contact</Typography></Link></li>
             </ul>
             <ul>
               <li><Typography variant="mdm">Links</Typography></li>
@@ -38,9 +38,9 @@ const Footer = () => {
             </ul>
             <ul>
               <li><Typography variant="mdm">Contact</Typography></li>
-              <li><Link style={{textDecoration: "none"}} to="/"><Typography variant="sm" color="text.white">334 Sunset Ave, Pennsylvania</Typography></Link></li>
-              <li><Link style={{textDecoration: "none"}} to="/"><Typography variant="sm" color="text.white">+00 123 456 789</Typography></Link></li>
-              <li><Link style={{textDecoration: "none"}} to="/"><Typography variant="sm" color="text.white">contact@realestates.com</Typography></Link></li>
+              <li><Typography variant="sm" color="text.white">334 Sunset Ave, Pennsylvania</Typography></li>
+              <li><Typography variant="sm" color="text.white">+00 123 456 789</Typography></li>
+              <li><Typography variant="sm" color="text.white">contact@realestates.com</Typography></li>
             </ul>
           </div>
         </div>
