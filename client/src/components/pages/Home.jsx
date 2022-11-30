@@ -30,7 +30,7 @@ const Home = () => {
           <SearchForm/>
         </div>
         <Box sx={{width: '100%', height: 700, marginBottom: 16, backgroundColor: "primary.main", zIndex: 2}}>
-          <div className='columnFlex p48 maxWidthXl' style={{paddingTop: 300}}>
+          <div className='columnFlex p48 maxWidthLg' style={{paddingTop: 300}}>
             <Typography variant="display" marginBottom={4} color="text.white">Real Estates</Typography>
             <Typography variant="lg" color="text.secondaryWhite" maxWidth={350}>Find the house that fit you the best and won't ruin your budget!</Typography>
           </div>

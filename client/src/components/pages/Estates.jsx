@@ -1,13 +1,13 @@
 import React from 'react'
-import { Box } from '@mui/material'
+import EstateSidebar from '../EstateSidebar'
+import { Outlet } from 'react-router-dom'
 
 const Properties = () => {
   return (
-    <Box sx={{width: '100%', marginTop:"128px" }}>
-      <div className='spaceBetweenFlex maxWidthLg p16'>
-        TO-DO: Estates
-      </div>
-    </Box>
+  <div style={{marginTop: 96, height: '100%', width: '100vw', display: 'flex'}}>
+        <EstateSidebar/>
+        <Outlet/>
+    </div>
   )
 }
 

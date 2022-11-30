@@ -32,7 +32,7 @@ const Footer = () => {
             </ul>
             <ul>
               <li><Typography variant="mdm">Links</Typography></li>
-              <li><Link style={{textDecoration: "none"}} to="/"><Typography variant="sm" color="text.white">For Employees</Typography></Link></li>
+              <li><Link style={{textDecoration: "none"}} to="/login"><Typography variant="sm" color="text.white">For Employees</Typography></Link></li>
               <li><Link style={{textDecoration: "none"}} to="/"><Typography variant="sm" color="text.white">Privacy Policy</Typography></Link></li>
               <li><Link style={{textDecoration: "none"}} to="/"><Typography variant="sm" color="text.white">Terms of Service</Typography></Link></li>
             </ul>
