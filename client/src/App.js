@@ -12,6 +12,7 @@ import HomeRent from "./components/pages/adminPanel/Estates/HomeRent";
 import ApartmentRent from "./components/pages/adminPanel/Estates/ApartmentRent";
 import ApartmentSale from "./components/pages/adminPanel/Estates/ApartmentSale";
 import LoginPage from "./components/pages/adminPanel/LoginPage";
+import NotFound from "./components/pages/NotFound";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path='/admin' element={<AdminPanel/>}>
           
         </Route>
+        <Route path='/*' element={<NotFound/>}/>
       </Routes>
     </Router>
   );
