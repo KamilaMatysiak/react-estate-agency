@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 import AdminPanel from "./components/pages/adminPanel/AdminPanel";
 import LandingPage from "./components/pages/LandingPage";
 import Home from './components/pages/Home'
@@ -13,9 +13,11 @@ import ApartmentRent from "./components/pages/adminPanel/Estates/ApartmentRent";
 import ApartmentSale from "./components/pages/adminPanel/Estates/ApartmentSale";
 import LoginPage from "./components/pages/adminPanel/LoginPage";
 import NotFound from "./components/pages/NotFound";
+import DebugRegister from "./components/pages/adminPanel/DebugRegister";
 
 
 function App() {
+  const user = JSON.parse(localStorage.getItem('profile'));
 
   return (
     <Router>
@@ -32,8 +34,9 @@ function App() {
             <Route path="/estates/houseForRent" element={<HomeRent/>}/>
           </Route>
         </Route>
-        <Route path='/login' element={<LoginPage/>}/>
-        <Route path='/admin' element={<AdminPanel/>}>
+        <Route path='/login' element={user ? <Navigate to='/admin/'/> : <LoginPage/>}/>
+        <Route path='/login/register' element={<DebugRegister />}/>
+        <Route path='/admin' element={user ? <AdminPanel/> : <Navigate replace to="/login"/>}>
           
         </Route>
         <Route path='/*' element={<NotFound/>}/>
