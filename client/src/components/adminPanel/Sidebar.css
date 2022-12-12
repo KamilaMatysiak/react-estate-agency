@@ -1,0 +1,23 @@
+.admin-panel {
+    width: 166px;
+    height: 24px;
+    margin: 26px 15px;
+    color: white;
+}
+
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 161px;
+    min-height: 270px;
+}
+
+.button {
+    width: 160px;
+    height: 35px;
+    padding: 8px 16px;
+    color: white;
+    margin-top: auto;
+    margin-bottom: 30px;
+}
