@@ -41,11 +41,11 @@ const Sidebar = () => {
         </div>
         <Typography variant="sm">
           <div className="menu-list">
-            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/dashboard">Home</NavLink>
-            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/dashboard">Employees</NavLink>
-            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/dashboard">Estates</NavLink>
-            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/dashboard">Offers</NavLink>
-            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/dashboard">Tenants</NavLink>
+            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/admin/">Home</NavLink>
+            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/admin/employees">Employees</NavLink>
+            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/admin/estates">Estates</NavLink>
+            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/admin/offers">Offers</NavLink>
+            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/admin/tenants">Tenants</NavLink>
           </div>
         </Typography>
         <div className="button">

@@ -14,6 +14,11 @@ import ApartmentSale from "./components/pages/adminPanel/Estates/ApartmentSale";
 import LoginPage from "./components/pages/adminPanel/LoginPage";
 import NotFound from "./components/pages/NotFound";
 import DebugRegister from "./components/pages/adminPanel/DebugRegister";
+import Dashboard from './components/pages/adminPanel/Dashboard';
+import Employees from './components/pages/adminPanel/Employees';
+import Offers from './components/pages/adminPanel/Offers';
+import AdminEstates from './components/pages/adminPanel/AdminEstates';
+import Tenants from './components/pages/adminPanel/Tenants';
 
 
 function App() {
@@ -27,7 +32,7 @@ function App() {
           <Route path="/contact" element={<Contact />}/>
           <Route path="/about" element={<About />}/>
           <Route path="/estates" element={<Estates />}>
-            <Route path='/estates/' element={<All/>}/>
+            <Route path='/estates' element={<All/>}/>
             <Route path="/estates/houseForSale" element={<HomeSale />}/>
             <Route path="/estates/apartmentForSale" element={<ApartmentSale/>}/>
             <Route path="/estates/apartmentForRent" element={<ApartmentRent/>}/>
@@ -37,7 +42,12 @@ function App() {
         <Route path='/login' element={user ? <Navigate to='/admin/'/> : <LoginPage/>}/>
         <Route path='/login/register' element={<DebugRegister />}/>
         <Route path='/admin' element={user ? <AdminPanel/> : <Navigate replace to="/login"/>}>
-          
+            <Route path='/admin' element={<Dashboard/>}/>
+            <Route path='/admin/dashboard' element={<Dashboard/>}/>
+            <Route path="/admin/employees" element={<Employees />}/>
+            <Route path="/admin/estates" element={<AdminEstates/>}/>
+            <Route path="/admin/offers" element={<Offers/>}/>
+            <Route path="/admin/tenants" element={<Tenants/>}/>
         </Route>
         <Route path='/*' element={<NotFound/>}/>
       </Routes>
