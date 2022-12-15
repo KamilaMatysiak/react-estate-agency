@@ -11,7 +11,7 @@ import placeholder from '../data/images/estates/placeholder.png'
 const EstateCard = () => {
   return (
     <ThemeProvider theme={theme}>
-        <Card sx={{width: 350, padding: 0, margin: 0}}>
+        <Card sx={{maxWidth: 350, padding: 0, margin: 0}}>
             <CardMedia 
                 sx={{padding: 0, margin: 0}}
                 component="img"
@@ -20,14 +20,14 @@ const EstateCard = () => {
                 alt="green iguana"
             />
             <CardContent>
-                <div className='columnFlex'>
+                <div className='columnFlex flexWrap'>
                     <Typography margin="2px" variant="xlm">Luxury Family House</Typography>
                     <div className='centerRowFlex' style={{marginBottom: "8px"}}> 
                         <LocationOnOutlined fontSize="small" color="text.secondaryBlack"/> 
                         <Typography color="text.secondaryBlack" variant="sm">Woodland Hills, California</Typography>
                     </div>
                 </div>
-                <div className='spaceAroundFlex' style={{margin: "8px 0"}}>
+                <div className='spaceAroundFlex flexWrap' style={{margin: "8px 0"}}>
                     <div className='centerRowFlex'> 
                         <BedOutlinedIcon 
                             sx= {{margin: '2px'}}
@@ -50,7 +50,7 @@ const EstateCard = () => {
                         <Typography color="text.secondaryBlack" variant="sm">100 sqft</Typography> 
                     </div>
                 </div>
-                <CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
+                <CardActions sx={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
                     <Typography variant="xlm">$11 290 500</Typography>
                     <Button variant="contained" sx={{backgroundColor:'primary.main', boxShadow: 'none'}}>View Details</Button>
                 </CardActions>

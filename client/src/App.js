@@ -6,6 +6,7 @@ import Home from './components/pages/Home'
 import Contact from './components/pages/Contact'
 import About from './components/pages/About'
 import Estates from './components/pages/Estates'
+import Estate from './components/pages/Estate'
 import All from "./components/pages/adminPanel/Estates/All";
 import HomeSale from "./components/pages/adminPanel/Estates/HomeSale";
 import HomeRent from "./components/pages/adminPanel/Estates/HomeRent";
@@ -38,6 +39,7 @@ function App() {
             <Route path="/estates/apartmentForRent" element={<ApartmentRent/>}/>
             <Route path="/estates/houseForRent" element={<HomeRent/>}/>
           </Route>
+          <Route path="/estate" element={<Estate />}></Route>
         </Route>
         <Route path='/login' element={user ? <Navigate to='/admin/'/> : <LoginPage/>}/>
         <Route path='/login/register' element={<DebugRegister />}/>

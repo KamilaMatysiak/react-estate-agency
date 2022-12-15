@@ -40,6 +40,11 @@ body {
     align-items: center;
 }
 
+.flexWrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .lh8 {
     margin: 8px 0;
 }
@@ -128,6 +133,13 @@ body {
     width: 100%;
     position: absolute;
     bottom: 0;
+}
+
+.tableItem {
+    display: flex;
+    margin: 8px 8px;
+    max-width: 80%;
+    align-items: center;
 }
 
 .debug {
