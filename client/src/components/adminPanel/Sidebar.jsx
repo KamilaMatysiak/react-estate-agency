@@ -5,6 +5,12 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import decode from 'jwt-decode'
 import './Sidebar.css'
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
+import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
+import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 
 
 const Sidebar = () => {
@@ -41,15 +47,15 @@ const Sidebar = () => {
         </div>
         <Typography variant="sm">
           <div className="menu-list">
-            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/admin/">Home</NavLink>
-            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/admin/employees">Employees</NavLink>
-            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/admin/estates">Estates</NavLink>
-            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/admin/offers">Offers</NavLink>
-            <NavLink style={{ color: "#fff", textDecoration: 'none', padding: '16px 24px' }} to="/admin/tenants">Tenants</NavLink>
+            <NavLink style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: (location.pathname === '/admin' || isActive) ? '2px solid #FFA220' : 'none' })} to="/admin/dashboard"><HomeOutlinedIcon className="icon" /> Homepage</NavLink>
+            <NavLink style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: isActive ? '2px solid #FFA220' : 'none' })} to="/admin/employees"><PersonOutlineOutlinedIcon className="icon" /> Employees</NavLink>
+            <NavLink style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: isActive ? '2px solid #FFA220' : 'none' })} to="/admin/estates"><HomeWorkOutlinedIcon className="icon" />Estates</NavLink>
+            <NavLink style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: isActive ? '2px solid #FFA220' : 'none' })} to="/admin/offers"><ContentPasteOutlinedIcon className="icon" />Offers</NavLink>
+            <NavLink style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: isActive ? '2px solid #FFA220' : 'none' })} to="/admin/tenants"><WorkOutlineOutlinedIcon className="icon" />Tenants</NavLink>
           </div>
         </Typography>
         <div className="button">
-          <Button variant="text.white" onClick={() => { logout() }}>Logout</Button>
+          <Button variant="sm" style={{ textTransform: 'none' }} onClick={() => { logout() }}><ExitToAppOutlinedIcon className="icon" />Logout</Button>
         </div>
       </Box>
     </ThemeProvider>
