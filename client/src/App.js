@@ -7,11 +7,11 @@ import Contact from './components/pages/Contact'
 import About from './components/pages/About'
 import Estates from './components/pages/Estates'
 import Estate from './components/pages/Estate'
-import All from "./components/pages/adminPanel/Estates/All";
-import HomeSale from "./components/pages/adminPanel/Estates/HomeSale";
-import HomeRent from "./components/pages/adminPanel/Estates/HomeRent";
-import ApartmentRent from "./components/pages/adminPanel/Estates/ApartmentRent";
-import ApartmentSale from "./components/pages/adminPanel/Estates/ApartmentSale";
+import All from "./components/pages/Estates/All";
+import HomeSale from "./components/pages/Estates/HomeSale";
+import HomeRent from "./components/pages/Estates/HomeRent";
+import ApartmentRent from "./components/pages/Estates/ApartmentRent";
+import ApartmentSale from "./components/pages/Estates/ApartmentSale";
 import LoginPage from "./components/pages/adminPanel/LoginPage";
 import NotFound from "./components/pages/NotFound";
 import DebugRegister from "./components/pages/adminPanel/DebugRegister";
