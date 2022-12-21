@@ -1,5 +1,8 @@
 import mongoose, { mongo } from "mongoose";
-import Employee from "../models/Employee";
+import Employee from "../models/Employee.js";
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
 export const getEmployees = async (req, res) => {
     try {
@@ -7,7 +10,7 @@ export const getEmployees = async (req, res) => {
 
         const employees = await Employee.find().sort({_id: -1})
 
-        console.table(employees);
+        console.log(employees);
 
         res.status(200).json({data: employees});
     } catch (error) {
@@ -29,8 +32,12 @@ export const getEmployee = async (req, res) => {
 }
 
 export const createEmployee = async (req, res) => {
+    console.log('create employee')
     const employee = req.body;
-    const newEmployee = new Employee({...employee});
+    console.log("req.body:", employee);
+    const hash = await bcrypt.hash(employee.password, 12);
+    const newEmployee = new Employee({...employee, password: hash});
+    console.log("new:", newEmployee)
     try {
         await newEmployee.save();
         res.status(200).json(newEmployee);
@@ -48,5 +55,5 @@ export const updateEmployee = async (req, res) => {
     }
 
     const updatedEmployee = await Employee.findByIdAndUpdate(_id, {...employee, _id}, {new: true});
-    res.json(updateEmployee);
+    res.json(updatedEmployee);
 }

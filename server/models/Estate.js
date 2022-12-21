@@ -5,7 +5,7 @@ import EstatesProperties from "./EstatesProperties.js"
 const EstateSchema = new Schema({
     id: {type: String},
     name: {type: String},
-    price: {type: mongoose.Types.Decimal128},
+    price: {type: Number, min: 1},
     status: {type: String},
     employeeId: {type: Schema.Types.ObjectId, ref: 'Employee'},
     estateLocalization: {type:EstatesLocalization.schema, default:{}},

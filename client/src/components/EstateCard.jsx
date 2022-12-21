@@ -8,7 +8,7 @@ import BathtubOutlinedIcon from '@mui/icons-material/BathtubOutlined';
 import LocationOnOutlined from '@mui/icons-material/LocationOnOutlined';
 import placeholder from '../data/images/estates/placeholder.png'
 
-const EstateCard = () => {
+const EstateCard = ({estate}) => {
   return (
     <ThemeProvider theme={theme}>
         <Card sx={{maxWidth: 350, padding: 0, margin: 0}}>
@@ -21,7 +21,7 @@ const EstateCard = () => {
             />
             <CardContent>
                 <div className='columnFlex flexWrap'>
-                    <Typography margin="2px" variant="xlm">Luxury Family House</Typography>
+                    <Typography margin="2px" variant="xlm">{estate.name}</Typography>
                     <div className='centerRowFlex' style={{marginBottom: "8px"}}> 
                         <LocationOnOutlined fontSize="small" color="text.secondaryBlack"/> 
                         <Typography color="text.secondaryBlack" variant="sm">Woodland Hills, California</Typography>
@@ -51,7 +51,7 @@ const EstateCard = () => {
                     </div>
                 </div>
                 <CardActions sx={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
-                    <Typography variant="xlm">$11 290 500</Typography>
+                    <Typography variant="xlm">${estate.price}</Typography>
                     <Button variant="contained" sx={{backgroundColor:'primary.main', boxShadow: 'none'}}>View Details</Button>
                 </CardActions>
             </CardContent>

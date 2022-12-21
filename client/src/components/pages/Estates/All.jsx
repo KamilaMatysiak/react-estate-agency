@@ -17,7 +17,7 @@ const All = () => {
   return (
     <Box>
       {estates.map((estate) => (
-        <div key={estate._id}>{estate.name}</div>
+        <EstateCard key={estate._id} estate={estate}/>
       ))}
     </Box>
   )
