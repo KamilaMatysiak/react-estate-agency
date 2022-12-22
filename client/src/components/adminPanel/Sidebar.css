@@ -1,25 +1,30 @@
 .admin-panel {
-    margin: 26px auto;
+    margin: 16px auto;
     color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .menu-list {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    max-width: 161px;
-    min-height: 270px;
+    width: 80%;
+    min-width: 200px;
+    min-height: 90vh;
+    margin: auto;
 }
 
-.button {
-    color: white;
+#logout {
     margin-top: auto;
-    margin-bottom: 30px;
 }
 
 .icon{
     vertical-align: middle;
-    font-size: 16px !important;
-    padding-bottom: 3px;
-    margin-right: 17px;
+    font-size: 24px;
+    margin-right: 16px;
+}
+
+.navLink:hover {
+    background-color: #3C3D4A;
 }

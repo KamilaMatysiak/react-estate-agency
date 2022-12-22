@@ -12,7 +12,6 @@ import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 
-
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,22 +40,20 @@ const Sidebar = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ backgroundColor: "primary.main", minHeigth: '100%', width: 250, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Box sx={{ backgroundColor: "primary.main", minHeigth: '100%', width: 250, display: 'flex', flexDirection: 'column'}}>
         <div className="admin-panel">
           <Typography variant="lg">Admin Panel</Typography>
         </div>
-        <Typography variant="sm">
+        <Typography variant="md">
           <div className="menu-list">
-            <NavLink style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: (location.pathname === '/admin' || isActive) ? '2px solid #FFA220' : 'none' })} to="/admin/dashboard"><HomeOutlinedIcon className="icon" /> Homepage</NavLink>
-            <NavLink style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: isActive ? '2px solid #FFA220' : 'none' })} to="/admin/employees"><PersonOutlineOutlinedIcon className="icon" /> Employees</NavLink>
-            <NavLink style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: isActive ? '2px solid #FFA220' : 'none' })} to="/admin/estates"><HomeWorkOutlinedIcon className="icon" />Estates</NavLink>
-            <NavLink style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: isActive ? '2px solid #FFA220' : 'none' })} to="/admin/offers"><ContentPasteOutlinedIcon className="icon" />Offers</NavLink>
-            <NavLink style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: isActive ? '2px solid #FFA220' : 'none' })} to="/admin/tenants"><WorkOutlineOutlinedIcon className="icon" />Tenants</NavLink>
+            <NavLink className="navLink" style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: (location.pathname === '/admin' || isActive) ? '2px solid #FFA220' : 'none' })} to="/admin/dashboard"><HomeOutlinedIcon className="icon" /> Homepage</NavLink>
+            <NavLink className="navLink" style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: isActive ? '2px solid #FFA220' : 'none' })} to="/admin/employees"><PersonOutlineOutlinedIcon className="icon" /> Employees</NavLink>
+            <NavLink className="navLink" style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: isActive ? '2px solid #FFA220' : 'none' })} to="/admin/estates"><HomeWorkOutlinedIcon className="icon" />Estates</NavLink>
+            <NavLink className="navLink" style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: isActive ? '2px solid #FFA220' : 'none' })} to="/admin/offers"><ContentPasteOutlinedIcon className="icon" />Offers</NavLink>
+            <NavLink className="navLink" style={({ isActive }) => ({ color: "#fff", textDecoration: 'none', padding: '12px 24px', borderBottom: isActive ? '2px solid #FFA220' : 'none' })} to="/admin/tenants"><WorkOutlineOutlinedIcon className="icon" />Tenants</NavLink>
+            <NavLink className="navLink" id="logout" style={{color: "#fff", textDecoration: 'none', padding: '12px 24px' }} onClick={() => { logout() }}><Typography variant="md"><ExitToAppOutlinedIcon className="icon" />Logout</Typography></NavLink>
           </div>
         </Typography>
-        <div className="button">
-          <Button variant="sm" style={{ textTransform: 'none' }} onClick={() => { logout() }}><ExitToAppOutlinedIcon className="icon" />Logout</Button>
-        </div>
       </Box>
     </ThemeProvider>
   )
