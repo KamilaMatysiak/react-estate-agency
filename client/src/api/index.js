@@ -20,3 +20,9 @@ export const fetchEmployee = (id) => API.get(`/admin/employee/${id}`);
 export const createEmployee = (newEmployee) => API.post('/admin/employees', newEmployee);
 export const updateEmployee = (id, updatedEmployee) => API.patch(`/admin/employees/${id}`, updatedEmployee);
 export const deleteEmployee = (id) => API.delete(`/admin/employees/${id}`);
+
+export const fetchTenants = () => API.get('/admin/tenants');
+export const fetchTenant = (id) => API.get(`/admin/tenant/${id}`);
+export const createTenant = (newTenant) => API.post('/admin/tenants', newTenant);
+export const updateTenant = (id, updatedTenant) => API.patch(`/admin/tenants/${id}`, updatedTenant);
+export const deleteTenant = (id) => API.delete(`/admin/tenants/${id}`);

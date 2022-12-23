@@ -19,6 +19,11 @@ import EstateCard from '../EstateCard';
 
 
 const Home = () => {
+  let temp = {
+    name: "Luxury house",
+    price: 2000000,
+  }
+  
   return (
     <ThemeProvider theme={theme}>
       <Container maxWidth={false} disableGutters>
@@ -91,9 +96,9 @@ const Home = () => {
           <Typography variant="h2m" color="text.black">Feaetured Properties</Typography>
         </div>
           <div className='spaceAroundFlex m48 maxWidthLg'>
-            <EstateCard/>
-            <EstateCard/>
-            <EstateCard/>   
+            <EstateCard estate={temp}/>
+            <EstateCard estate={temp}/>
+            <EstateCard estate={temp}/>   
           </div>
           <div className='p48 centerFlex'>
           <Button variant="outlined" >View More</Button>

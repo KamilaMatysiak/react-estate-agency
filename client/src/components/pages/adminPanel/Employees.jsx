@@ -47,8 +47,8 @@ const Employees = () => {
         Add Employee
       </Button>
       </div>
-      <Dialog open={open} onClose={handleClose}>
-        <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+      <Dialog open={open} onClose={handleClose} PaperProps={{style: {background: '#fff'}}}>
+        <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{backgroundColor: "#fff"}}>
           <DialogTitle>Add Employee</DialogTitle>
           <DialogContent>
             <FileBase type="file" multiple={false} onDone={({base64}) => setEmployeeData({...employeeData, avatar: base64})}/>

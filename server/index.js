@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import login from './routes/login.js';
 import estateRoutes from './routes/estates.js'
 import employeeRoutes from './routes/employees.js'
+import tenantRoutes from './routes/tenants.js'
 
 const app = express();
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(cors());
 app.use('/login', login);
 app.use('/estates', estateRoutes);
 app.use('/admin/employees', employeeRoutes);
+app.use('/admin/tenants', tenantRoutes);
 
 const PORT = process.env.PORT || 5000;
 
