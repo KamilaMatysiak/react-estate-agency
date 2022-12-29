@@ -38,7 +38,7 @@ const Tenants = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container sx={{ marginTop: 8 }}>
-        
+
         <Dialog open={open} onClose={handleClose} PaperProps={{ style: { background: '#fff' } }}>
           <form autoComplete="off" noValidate onSubmit={handleSubmit}>
             <DialogTitle>Add Tenant</DialogTitle>
@@ -72,7 +72,7 @@ const Tenants = () => {
             <div className='m8' style={{ width: '200px', maxWidth: '200px', textAlign: 'left' }}>Actions</div>
           </div>
           {tenants.map((tenant) => (
-            <div key={tenant._id} style={{ width: '100%', background: '#e3e3e3', margin: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div key={tenant._id} style={{ width: '100%', background: '#e3e3e3',  marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}><b>{tenant.name}</b></div>
               <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>{tenant.email}</div>
               <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>{tenant.phoneNumber}</div>
