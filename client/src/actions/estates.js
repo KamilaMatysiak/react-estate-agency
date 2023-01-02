@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { FETCH_ALL, FETCH_ESTATE } from '../constants/actionTypes';
+import { FETCH_ALL, FETCH_ESTATE, CREATE } from '../constants/actionTypes';
 
 export const getEstates = () => async(dispatch) => {
     try {
@@ -7,6 +7,15 @@ export const getEstates = () => async(dispatch) => {
         const {data} = await api.fetchEstates();
         console.log("funny debug");
         dispatch({type: FETCH_ALL, payload: data});    
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+export const createEstate = (estate) => async (dispatch) => {
+    try {
+        const { data } = await api.createEstate(estate);
+        dispatch({type: CREATE, payload: data });
     } catch(error) {
         console.log(error);
     }

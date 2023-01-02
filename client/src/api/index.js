@@ -12,8 +12,11 @@ API.interceptors.request.use((req) => {
 export const login = (formData) => API.post('/login', formData);
 export const register = (formData) => API.post('/login/register', formData);
 
-export const fetchEstates = () => API.get('/estates');
-export const fetchEstate = (id) => API.get(`/estates/${id}`);
+export const fetchEstates = () => API.get('admin/estates');
+export const fetchEstate = (id) => API.get(`admin/estates/${id}`);
+export const createEstate = (newEstate) => API.post('/admin/estates/', newEstate);
+export const updateEstate = (id, updatedEstate) => API.patch(`/admin/estates/${id}`, updatedEstate);
+export const deleteEstate = (id) => API.delete(`/admin/estates/${id}`);
 
 export const fetchEmployees = () => API.get('/admin/employees');
 export const fetchEmployee = (id) => API.get(`/admin/employee/${id}`);
