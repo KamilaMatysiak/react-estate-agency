@@ -28,11 +28,7 @@ export const getEstate = async (req, res) => {
         const { id } = req.params;
 
         const estate = await Estate.findById(id)
-        const estateProps = await EstateProperties.findById(id)
-        const estateLoc = await EstateLocalization.findById(id)
         console.table(estate);
-        console.table(estateProps);
-        console.table(estateLoc);
 
         res.status(200).json({ data: estate });
     } catch (error) {
@@ -42,12 +38,19 @@ export const getEstate = async (req, res) => {
 
 export const createEstates = async (req, res) => {
     console.log('create estates')
-    const estate = req.body;
-    const estateProps = req.body;
-    const estateLoc = req.body;
-    const newEstateProps = new EstateProperties({...estateProps})
-    const newEstateLoc = new EstateLocalization({...estateLoc})
-    const newEstate = new Estate({ ...estate, newEstateProps, newEstateLoc});
+    console.log(req.body)
+    const estate = {...req.body, bathrooms:4, city:"Poznan", bedrooms:1} ;
+
+    const newEstateProps = new EstateProperties({...estate})
+    console.log('create estates 2')
+    console.log(newEstateProps)
+    const newEstateLoc = new EstateLocalization({...estate})
+
+    console.log('create estates 3')
+    console.log(newEstateLoc)
+    const newEstate = new Estate({ ...estate, estateProperties:newEstateProps, estateLocalization:newEstateLoc});
+    console.log('create estates 4')
+    console.log(newEstate)
     try {
         await newEstate.save();
         res.status(200).json(newEstate);
@@ -58,12 +61,20 @@ export const createEstates = async (req, res) => {
 
 export const updateEstate = async (req, res) => {
     const { _id } = req.params;
-    const estate = req.body;
+    const estateData = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(404).json({ message: "No estate to update" });
     }
 
-    const updatedEstate = await Estate.findByIdAndUpdate(_id, { ...estate, _id }, { new: true });
-    res.json(updatedEstate);
+    let estate = await Estate.findById(_id);
+    //, { ...estate, _id, estateLocalization: } { new: true }
+    updatedEstate.estateLocalization = {...updatedEstate.estateLocalization, estateData}
+    updatedEstate.estateProperties = {...updatedEstate.estateProperties, estateData}
+    try {
+        await estate.update(...estateData).save()
+        res.json(estate);
+    } catch (error) {
+        res.status(404).json({ message: error.message1 })
+    }
 }

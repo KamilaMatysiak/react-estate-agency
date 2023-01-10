@@ -22,6 +22,4 @@ const EstatePropertiesSchema = new Schema({
     estateId: {type: Schema.Types.ObjectId, ref: 'Estate'},
 });
 
-const EstateProperties = mongoose.model('EstateProperties', EstatePropertiesSchema);
-
-export default EstateProperties;
+export default EstatePropertiesSchema;
