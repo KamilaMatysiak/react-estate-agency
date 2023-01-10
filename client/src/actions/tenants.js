@@ -1,10 +1,9 @@
 import * as api from '../api';
 import { FETCH_ALL, CREATE, FETCH_BY_SEARCH } from '../constants/actionTypes';
 
-export const getTenants = () => async(dispatch) => {
+export const getTenants = (page) => async(dispatch) => {
     try {
-        console.log("Initiating: getEmployees");
-        const {data} = await api.fetchTenants();
+        const {data} = await api.fetchTenants(page);
         dispatch({type: FETCH_ALL, payload: data});    
     } catch(error) {
         console.log(error);

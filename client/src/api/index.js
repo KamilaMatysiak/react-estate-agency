@@ -24,7 +24,7 @@ export const createEmployee = (newEmployee) => API.post('/admin/employees', newE
 export const updateEmployee = (id, updatedEmployee) => API.patch(`/admin/employees/${id}`, updatedEmployee);
 export const deleteEmployee = (id) => API.delete(`/admin/employees/${id}`);
 
-export const fetchTenants = () => API.get('/admin/tenants');
+export const fetchTenants = (page) => API.get(`/admin/tenants?page=${page}`);
 export const fetchTenantsBySearch = (searchQuery) => API.get(`/admin/tenants/search?searchQuery=${searchQuery.search || 'none'}`);
 export const createTenant = (newTenant) => API.post('/admin/tenants', newTenant);
 export const updateTenant = (id, updatedTenant) => API.patch(`/admin/tenants/${id}`, updatedTenant);

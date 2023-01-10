@@ -6,6 +6,8 @@ import { createTenant, getTenants, getTenantsBySearch } from '../../../actions/t
 import { Container } from '@mui/system';
 import Pagination from '../../Pagination'
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -28,8 +30,15 @@ const Tenants = () => {
   const [currentID, setCurrentID] = useState(0);
   const { tenants } = useSelector((state) => state.tenants);
 
+  let tableRow = {
+    width: '250px', 
+    maxWidth: '300px', 
+    textAlign: 'left'
+  }
+
   useEffect(() => {
-    dispatch(getTenants());
+    console.log(Number(page));
+    dispatch(getTenants(page));
   }, [currentID, dispatch])
 
   const handleClickOpen = () => {
@@ -82,7 +91,7 @@ const Tenants = () => {
 
 
         <h1>Tenants</h1>
-        <Box sx={{ height: '450px', border: '1px solid rgba(0, 0, 0, 0.12)', padding: '36px', overflowY: 'scroll', overflow: 'auto', marginTop: '20px' }}>
+        <Box sx={{border: '1px solid rgba(0, 0, 0, 0.12)', padding: '36px', marginTop: '20px' }}>
           <div style={{ marginBottom: 8 }}>
             <TextField name="search" varaint="outlined" style={{ width: 'calc(100% - 170px)', margin: 8 }} placeholder='Type to search...' value={search} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={handleKeyDown} />
             <Button variant="contained" style={{ height: '56px', margin: 8 }} onClick={handleClickOpen}>
@@ -90,24 +99,26 @@ const Tenants = () => {
             </Button>
           </div>
           <div style={{ width: '100%', background: '#F8F8F8', marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}><b>Name</b></div>
-            <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>Email</div>
-            <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>Phone</div>
-            <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>Termination</div>
-            <div className='m8' style={{ width: '200px', maxWidth: '200px', textAlign: 'left' }}>Actions</div>
+            <div className='m8' style={tableRow}><b>Name</b></div>
+            <div className='m8' style={tableRow}>Email</div>
+            <div className='m8' style={{tableRow, maxWidth: '100px'}}>Phone</div>
+            <div className='m8' style={tableRow}>Termination</div>
+            <div className='m8' style={{tableRow, width: '100px'}}>Actions</div>
           </div>
         
           {tenants.map((tenant) => (
             <div key={tenant._id} style={{ width: '100%', background: '#e3e3e3',  marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}><b>{tenant.name}</b></div>
-              <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>{tenant.email}</div>
-              <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>{tenant.phoneNumber}</div>
-              <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>{tenant.terminationDate}</div>
-              <div className='m8' style={{ width: '200px', maxWidth: '200px', textAlign: 'left' }}>EDIT DELETE</div>
+              <div className='m8' style={tableRow}><b>{tenant.name}</b></div>
+              <div className='m8' style={tableRow}>{tenant.email}</div>
+              <div className='m8' style={{tableRow, maxWidth: '100px'}}>{tenant.phoneNumber}</div>
+              <div className='m8' style={tableRow}>{tenant.terminationDate}</div>
+              <div className='m8' style={{tableRow, width: '100px'}}>
+              <EditOutlinedIcon/> <DeleteOutlineOutlinedIcon/>
+              </div>
             </div>
           ))}
-          <Box>
-            <Pagination/>
+          <Box sx={{paddingTop: 4}}>
+            <Pagination page={page}/>
           </Box>
         </Box>
       </Container>
