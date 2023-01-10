@@ -9,13 +9,9 @@ export const getEstates = async (req, res) => {
         console.log("Getting estates");
 
         const estates = await Estate.find().sort({ _id: -1 })
-        const estatesProps = await EstateProperties.find().sort({ _id: -1 })
-        const estatesLoc = await EstateLocalization.find().sort({ _id: -1 })
 
         console.log(estates)
         console.table(estates);
-        console.table(estatesProps);
-        console.table(estatesLoc);
 
         res.status(200).json({ data: estates });
     } catch (error) {
@@ -41,14 +37,7 @@ export const createEstates = async (req, res) => {
     console.log(req.body)
     const estate = {...req.body, bathrooms:4, city:"Poznan", bedrooms:1} ;
 
-    const newEstateProps = new EstateProperties({...estate})
-    console.log('create estates 2')
-    console.log(newEstateProps)
-    const newEstateLoc = new EstateLocalization({...estate})
-
-    console.log('create estates 3')
-    console.log(newEstateLoc)
-    const newEstate = new Estate({ ...estate, estateProperties:newEstateProps, estateLocalization:newEstateLoc});
+    const newEstate = new Estate({ ...estate, estateProperties:{...estate}, estateLocalization:{...estate}});
     console.log('create estates 4')
     console.log(newEstate)
     try {
