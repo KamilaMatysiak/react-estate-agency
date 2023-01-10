@@ -15,14 +15,18 @@ export const getTenants = async (req, res) => {
     }
 }
 
-export const getTenant = async (req, res) => {
+export const getTenantsBySearch = async (req, res) => {
+    console.log("by search")
+    const {searchQuery} = req.query;
+    console.log(searchQuery);
+    
     try {
-        const {id} = req.params;
+        const name = new RegExp(searchQuery, 'i');
+        console.log("title:", name)
+        const tenants = await Tenant.find({name})
+        console.log(tenants);
 
-        const tenant = await Tenant.findById(id);
-        console.table(tenant);
-
-        res.status(200).json({data: tenant});
+        res.json({data: tenants});
     } catch (error) {
         res.status(404).json({message: error.message})
     }

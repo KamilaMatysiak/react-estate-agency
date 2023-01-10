@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import theme from '../../Theme'
-import { Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider } from '@mui/material';
+import { Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTenant, getTenants } from '../../../actions/tenants';
+import { createTenant, getTenants, getTenantsBySearch } from '../../../actions/tenants';
 import { Container } from '@mui/system';
+import Pagination from '../../Pagination'
+import { useNavigate, useLocation, Navigate } from 'react-router-dom';
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 const Tenants = () => {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(false);
+  const query = useQuery();
+  const navigate = useNavigate();
+  const page = query.get('page') || 1;
+  const searchQuery = query.get('searchQuery');
+  const [search, setSearch] = useState('');
+  const [open, setOpen] = useState(false);
   const [tenantData, setTenantData] = useState({
     name: '',
     email: '',
@@ -35,6 +46,20 @@ const Tenants = () => {
     dispatch(createTenant({ ...tenantData }));
   }
 
+  const handleKeyDown = (e) => {
+    if(e.keyCode === 13) {
+      searchTenant();
+    }
+  }
+
+  const searchTenant = () => {
+    if(search.trim()) {
+      dispatch(getTenantsBySearch({search}));
+    } else {
+      navigate("/");
+    }
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Container sx={{ marginTop: 8 }}>
@@ -59,7 +84,7 @@ const Tenants = () => {
         <h1>Tenants</h1>
         <Box sx={{ height: '450px', border: '1px solid rgba(0, 0, 0, 0.12)', padding: '36px', overflowY: 'scroll', overflow: 'auto', marginTop: '20px' }}>
           <div style={{ marginBottom: 8 }}>
-            <TextField varaint="outlined" style={{ width: 'calc(100% - 170px)', margin: 8 }} placeholder='There will be search' />
+            <TextField name="search" varaint="outlined" style={{ width: 'calc(100% - 170px)', margin: 8 }} placeholder='Type to search...' value={search} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={handleKeyDown} />
             <Button variant="contained" style={{ height: '56px', margin: 8 }} onClick={handleClickOpen}>
               Add Tenant
             </Button>
@@ -71,6 +96,7 @@ const Tenants = () => {
             <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>Termination</div>
             <div className='m8' style={{ width: '200px', maxWidth: '200px', textAlign: 'left' }}>Actions</div>
           </div>
+        
           {tenants.map((tenant) => (
             <div key={tenant._id} style={{ width: '100%', background: '#e3e3e3',  marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}><b>{tenant.name}</b></div>
@@ -80,6 +106,9 @@ const Tenants = () => {
               <div className='m8' style={{ width: '200px', maxWidth: '200px', textAlign: 'left' }}>EDIT DELETE</div>
             </div>
           ))}
+          <Box>
+            <Pagination/>
+          </Box>
         </Box>
       </Container>
     </ThemeProvider>

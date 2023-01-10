@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { FETCH_ALL, FETCH_TENANT, CREATE } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, FETCH_BY_SEARCH } from '../constants/actionTypes';
 
 export const getTenants = () => async(dispatch) => {
     try {
@@ -16,6 +16,16 @@ export const createTenant = (tenant) => async (dispatch) => {
         const { data } = await api.createTenant(tenant);
         dispatch({type: CREATE, payload: data });
     } catch(error) {
+        console.log(error);
+    }
+}
+
+export const getTenantsBySearch = (searchQuery) => async(dispatch) => {
+    try {
+        const {data: {data}} = await api.fetchTenantsBySearch(searchQuery);
+        dispatch({type: FETCH_BY_SEARCH, payload: data}); 
+    }
+    catch(error) {
         console.log(error);
     }
 }
