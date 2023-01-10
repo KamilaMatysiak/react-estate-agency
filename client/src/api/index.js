@@ -26,3 +26,6 @@ export const fetchTenant = (id) => API.get(`/admin/tenant/${id}`);
 export const createTenant = (newTenant) => API.post('/admin/tenants', newTenant);
 export const updateTenant = (id, updatedTenant) => API.patch(`/admin/tenants/${id}`, updatedTenant);
 export const deleteTenant = (id) => API.delete(`/admin/tenants/${id}`);
+
+export const fetchOffers = () => API.get('/admin/offers');
+export const createOffer = (newOffer) => API.post('/admin/offers', newOffer);
