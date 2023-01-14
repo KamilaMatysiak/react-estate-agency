@@ -12,17 +12,21 @@ API.interceptors.request.use((req) => {
 export const login = (formData) => API.post('/login', formData);
 export const register = (formData) => API.post('/login/register', formData);
 
-export const fetchEstates = () => API.get('/estates');
-export const fetchEstate = (id) => API.get(`/estates/${id}`);
+export const fetchEstates = () => API.get('admin/estates');
+export const fetchEstate = (id) => API.get(`admin/estates/${id}`);
+export const createEstate = (newEstate) => API.post('/admin/estates/', newEstate);
+export const updateEstate = (id, updatedEstate) => API.patch(`/admin/estates/${id}`, updatedEstate);
+export const deleteEstate = (id) => API.delete(`/admin/estates/${id}`);
 
-export const fetchEmployees = () => API.get('/admin/employees');
+export const fetchEmployees = (page) => API.get(`/admin/employees?page=${page}`);
+export const fetchEmployeesBySearch = (searchQuery) => API.get(`/admin/employees/search?searchQuery=${searchQuery.search || 'none'}`);
 export const fetchEmployee = (id) => API.get(`/admin/employee/${id}`);
 export const createEmployee = (newEmployee) => API.post('/admin/employees', newEmployee);
 export const updateEmployee = (id, updatedEmployee) => API.patch(`/admin/employees/${id}`, updatedEmployee);
 export const deleteEmployee = (id) => API.delete(`/admin/employees/${id}`);
 
-export const fetchTenants = () => API.get('/admin/tenants');
-export const fetchTenant = (id) => API.get(`/admin/tenant/${id}`);
+export const fetchTenants = (page) => API.get(`/admin/tenants?page=${page}`);
+export const fetchTenantsBySearch = (searchQuery) => API.get(`/admin/tenants/search?searchQuery=${searchQuery.search || 'none'}`);
 export const createTenant = (newTenant) => API.post('/admin/tenants', newTenant);
 export const updateTenant = (id, updatedTenant) => API.patch(`/admin/tenants/${id}`, updatedTenant);
 export const deleteTenant = (id) => API.delete(`/admin/tenants/${id}`);

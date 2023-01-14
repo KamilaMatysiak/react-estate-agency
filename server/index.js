@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use(cors());
 
 app.use('/login', login);
-app.use('/estates', estateRoutes);
+app.use('/admin/estates', estateRoutes);
 app.use('/admin/employees', employeeRoutes);
 app.use('/admin/tenants', tenantRoutes);
 app.use('/admin/offers', offerRoutes);

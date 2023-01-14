@@ -2,12 +2,25 @@ import React, {useState, useEffect} from 'react'
 import theme from '../../Theme'
 import {Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, CardMedia, ThemeProvider} from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
-import { createEmployee, getEmployees } from '../../../actions/employees';
+import { createEmployee, getEmployees, getEmployeesBySearch } from '../../../actions/employees';
 import FileBase from 'react-file-base64';
 import { Container } from '@mui/system';
+import Pagination from '../../Pagination'
+import { useNavigate, useLocation } from 'react-router-dom';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 const Employees = () => {
   const dispatch = useDispatch();
+  const query = useQuery();
+  const navigate = useNavigate();
+  const page = query.get('page') || 1;
+  const searchQuery = query.get('searchQuery');
+  const [search, setSearch] = useState('');
   const [open, setOpen] = React.useState(false);
   const [employeeData, setEmployeeData] = useState({
     avatar: '',
@@ -18,7 +31,7 @@ const Employees = () => {
     password: ''
   });
   const [currentID, setCurrentID] = useState(0);
-  const {employees} = useSelector((state) => state.employees);
+  const {objects} = useSelector((state) => state.objects);
 
   useEffect(() => {
     dispatch(getEmployees());
@@ -38,15 +51,24 @@ const Employees = () => {
     dispatch(createEmployee({...employeeData}));
   }
 
+  const handleKeyDown = (e) => {
+    if(e.keyCode === 13) {
+      searchEmployee();
+    }
+  }
+
+  const searchEmployee = () => {
+    if(search.trim()) {
+      dispatch(getEmployeesBySearch({search}));
+    } else {
+      navigate("/");
+    }
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Container sx={{marginTop: 8}}>
-      <div style={{float: 'right', marginBottom: 8}}>
-        <TextField varaint="outlined" placeholder='There will be search'/>
-      <Button variant="contained" style={{height: '56px'}} onClick={handleClickOpen}>
-        Add Employee
-      </Button>
-      </div>
+
       <Dialog open={open} onClose={handleClose} PaperProps={{style: {background: '#fff'}}}>
         <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{backgroundColor: "#fff"}}>
           <DialogTitle>Add Employee</DialogTitle>
@@ -65,18 +87,28 @@ const Employees = () => {
           </form>
       </Dialog>
 
-
-      <Box className="maxWidthXl">
-        {employees.map((employee) => (
-          <div key={employee._id} style={{width: '100%', background: '#e3e3e3', margin: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-             <CardMedia style={{width: 32, height: 32, margin: 16, borderRadius: 180}} image={employee.avatar}/>
-            <div className='m8' style={{width: '200px', maxWidth: '300px', textAlign: 'left'}}>{employee.username}</div>
-            <div className='m8' style={{width: '200px', maxWidth: '300px', textAlign: 'left'}}><b>{employee.name}</b></div>
-            <div className='m8' style={{width: '200px', maxWidth: '300px', textAlign: 'left'}}>{employee.email}</div>
-            <div className='m8' style={{width: '200px', maxWidth: '300px', textAlign: 'left'}}>{employee.phoneNumber}</div>
-            <div className='m8' style={{width: '200px', maxWidth: '200px', textAlign: 'left'}}>EDIT DELETE</div>
+      <h1>Employees</h1>
+        <Box sx={{border: '1px solid rgba(0, 0, 0, 0.12)', padding: '36px', marginTop: '20px' }}>
+          <div style={{ marginBottom: 8, display: 'flex', justifyContent: 'space-between' }}>
+            <TextField name="search" varaint="outlined" style={{ width: 'calc(100% - 185px)', margin: 8 }} placeholder='Type to search...' value={search} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={handleKeyDown} />
+            <Button variant="contained" style={{ height: '56px', margin: 8 }} onClick={handleClickOpen}>
+              Add Employee
+            </Button>
           </div>
-        ))}
+
+          {objects.map((employee) => (
+            <div key={employee._id} style={{width: '100%', background: '#e3e3e3', margin: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+              <CardMedia style={{width: 32, height: 32, margin: 16, borderRadius: 180}} image={employee.avatar}/>
+              <div className='m8' style={{width: '200px', maxWidth: '300px', textAlign: 'left'}}>{employee.username}</div>
+              <div className='m8' style={{width: '200px', maxWidth: '300px', textAlign: 'left'}}><b>{employee.name}</b></div>
+              <div className='m8' style={{width: '200px', maxWidth: '300px', textAlign: 'left'}}>{employee.email}</div>
+              <div className='m8' style={{width: '200px', maxWidth: '300px', textAlign: 'left'}}>{employee.phoneNumber}</div>
+              <div className='m8' style={{width: '200px', maxWidth: '200px', textAlign: 'left'}}><EditOutlinedIcon/> <DeleteOutlineOutlinedIcon/></div>
+            </div>
+          ))}
+          <Box sx={{paddingTop: 4}}>
+            <Pagination page={page} type="employees"/>
+          </Box>
       </Box>
       </Container>
     </ThemeProvider>
