@@ -30,3 +30,7 @@ export const fetchTenantsBySearch = (searchQuery) => API.get(`/admin/tenants/sea
 export const createTenant = (newTenant) => API.post('/admin/tenants', newTenant);
 export const updateTenant = (id, updatedTenant) => API.patch(`/admin/tenants/${id}`, updatedTenant);
 export const deleteTenant = (id) => API.delete(`/admin/tenants/${id}`);
+
+export const fetchOffers = (page) => API.get(`/admin/offers?page=${page}`);
+export const fetchOffersBySearch = (searchQuery) => API.get(`/admin/offers/search?searchQuery=${searchQuery.search || 'none'}`);
+export const createOffer = (newOffer) => API.post('/admin/offers', newOffer);

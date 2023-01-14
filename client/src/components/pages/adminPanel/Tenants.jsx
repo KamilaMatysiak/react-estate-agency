@@ -65,7 +65,7 @@ const Tenants = () => {
     if(search.trim()) {
       dispatch(getTenantsBySearch({search}));
     } else {
-      navigate("/");
+      navigate("/admin/tenants");
     }
   }
 
