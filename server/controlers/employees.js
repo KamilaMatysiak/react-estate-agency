@@ -5,14 +5,32 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 export const getEmployees = async (req, res) => {
+    const {page} = req.query;
+    console.log(page);
+
     try {
-        console.log("Getting employees");
+        const LIMIT = 5;
+        const startIndex = (Number(page) - 1) * LIMIT;
+        
+        const total = await Employee.countDocuments({});
+        const employees = await Employee.find().sort({_id: -1}).limit(LIMIT).skip(startIndex);
 
-        const employees = await Employee.find().sort({_id: -1})
+        res.status(200).json({data: employees, currentPage: Number(page), numberOfPages: Math.ceil(total/LIMIT)});
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
+}
 
+export const getEmployeesBySearch = async (req, res) => {
+    const {searchQuery} = req.query;
+    
+    try {
+        const name = new RegExp(searchQuery, 'i');
+        console.log("title:", name)
+        const employees = await Employee.find({name})
         console.log(employees);
 
-        res.status(200).json({data: employees});
+        res.json({data: employees});
     } catch (error) {
         res.status(404).json({message: error.message})
     }

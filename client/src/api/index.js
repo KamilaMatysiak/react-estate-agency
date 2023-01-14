@@ -18,7 +18,8 @@ export const createEstate = (newEstate) => API.post('/admin/estates/', newEstate
 export const updateEstate = (id, updatedEstate) => API.patch(`/admin/estates/${id}`, updatedEstate);
 export const deleteEstate = (id) => API.delete(`/admin/estates/${id}`);
 
-export const fetchEmployees = () => API.get('/admin/employees');
+export const fetchEmployees = (page) => API.get(`/admin/employees?page=${page}`);
+export const fetchEmployeesBySearch = (searchQuery) => API.get(`/admin/employees/search?searchQuery=${searchQuery.search || 'none'}`);
 export const fetchEmployee = (id) => API.get(`/admin/employee/${id}`);
 export const createEmployee = (newEmployee) => API.post('/admin/employees', newEmployee);
 export const updateEmployee = (id, updatedEmployee) => API.patch(`/admin/employees/${id}`, updatedEmployee);

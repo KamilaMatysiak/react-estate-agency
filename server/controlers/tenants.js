@@ -11,8 +11,6 @@ export const getTenants = async (req, res) => {
 
         const tenants = await Tenant.find().sort({_id: -1}).limit(LIMIT).skip(startIndex);
 
-        console.log(tenants);
-
         res.status(200).json({data: tenants, currentPage: Number(page), numberOfPages: Math.ceil(total/LIMIT)});
     } catch (error) {
         res.status(404).json({message: error.message})
@@ -26,9 +24,7 @@ export const getTenantsBySearch = async (req, res) => {
     
     try {
         const name = new RegExp(searchQuery, 'i');
-        console.log("title:", name)
         const tenants = await Tenant.find({name})
-        console.log(tenants);
 
         res.json({data: tenants});
     } catch (error) {

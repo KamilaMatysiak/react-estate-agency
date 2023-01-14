@@ -1,4 +1,5 @@
 export const FETCH_ALL = 'FETCH_ALL';
+export const FETCH_OBJECT = 'FETCH_OBJECT';
 
 export const FETCH_ESTATE = 'FETCH_ESTATE';
 export const FETCH_EMPLOYEE = 'FETCH_EMPLOYEE';

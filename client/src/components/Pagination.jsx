@@ -4,15 +4,22 @@ import theme from "./Theme";
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
-//TODO: make it universal
 import {getTenants} from '../actions/tenants';
+import {getEmployees} from '../actions/employees';
+import {getEstates} from '../actions/estates';
 
-const Paginate = ({page}) => {
+const Paginate = ({page, type}) => {
     const dispatch = useDispatch();
-    const { numberOfPages } = useSelector((state) => state.tenants)
+    const { numberOfPages } = useSelector((state) => state.objects)
 
     useEffect(() => {
-        if(page) dispatch(getTenants(page));
+        if(page) {
+            console.log(page);
+            if(type === "tenants") dispatch(getTenants(page));
+            if(type === "estates") dispatch(getEstates(page));
+            if(type === "employees") dispatch(getEmployees(page));
+            //if(type === "offers") dispatch(getOffers(page));
+        } 
     }, [page]);
 
     return(
@@ -24,7 +31,7 @@ const Paginate = ({page}) => {
             shape="rounded"
             color="primary"
             renderItem={(item) => (
-                <PaginationItem {...item} component={Link} to={`/admin/tenants?page=${item.page}`}/>
+                <PaginationItem {...item} component={Link} to={`/admin/${type}?page=${item.page}`}/>
             )}
         />
         </ThemeProvider>
