@@ -61,7 +61,7 @@ const Employees = () => {
     if(search.trim()) {
       dispatch(getEmployeesBySearch({search}));
     } else {
-      navigate("/");
+      navigate("/admin/employees");
     }
   }
 

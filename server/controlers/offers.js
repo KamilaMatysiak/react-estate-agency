@@ -3,14 +3,31 @@ import Offer from "../models/Offers.js";
 import Estate from "../models/Estate.js";
 
 export const getOffers = async (req, res) => {
+    const {page} = req.query;
+
     try {
-        console.log("Getting offers");
+        const LIMIT = 5;
+        const startIndex = (Number(page) - 1) * LIMIT;
+        const total = await Offer.countDocuments({});
 
-        const offers = await Offer.find().sort({_id: -1})
+        const offers = await Offer.find().sort({_id: -1}).limit(LIMIT).skip(startIndex);
 
-        console.log(offers);
+        res.status(200).json({data: offers, currentPage: Number(page), numberOfPages: Math.ceil(total/LIMIT)});
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
+}
 
-        res.status(200).json({data: offers});
+export const getOffersBySearch = async (req, res) => {
+    console.log("by search")
+    const {searchQuery} = req.query;
+    console.log(searchQuery);
+    
+    try {
+        const name = new RegExp(searchQuery, 'i');
+        const offers = await Offer.find({name})
+
+        res.json({data: offers});
     } catch (error) {
         res.status(404).json({message: error.message})
     }
