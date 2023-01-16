@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import theme from '../../Theme'
-import { Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider} from '@mui/material';
+import { Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider, Typography} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTenant, getTenants, getTenantsBySearch } from '../../../actions/tenants';
 import { Container } from '@mui/system';
@@ -29,12 +29,6 @@ const Tenants = () => {
   });
   const [currentID, setCurrentID] = useState(0);
   const { objects } = useSelector((state) => state.objects);
-
-  let tableRow = {
-    width: '250px', 
-    maxWidth: '300px', 
-    textAlign: 'left'
-  }
 
   useEffect(() => {
     console.log(Number(page));
@@ -98,21 +92,21 @@ const Tenants = () => {
               Add Tenant
             </Button>
           </div>
-          <div style={{ width: '100%', background: '#F8F8F8', marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div className='m8' style={tableRow}><b>Name</b></div>
-            <div className='m8' style={tableRow}>Email</div>
-            <div className='m8' style={{tableRow, maxWidth: '100px'}}>Phone</div>
-            <div className='m8' style={tableRow}>Termination</div>
-            <div className='m8' style={{tableRow, width: '100px'}}>Actions</div>
+          <div className="tableRow" style={{background: '#F8F8F8', marginTop: 8}}>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Name</Typography></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Email</Typography></div>
+            <div className='m8 tableRowDetails' style={{maxWidth: '100px'}}><Typography variant="mdm">Phone</Typography></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Termination</Typography></div>
+            <div className='m8 tableRowDetails' style={{width: '100px'}}><Typography variant="mdm">Actions</Typography></div>
           </div>
         
           {objects.map((tenant) => (
-            <div key={tenant._id} style={{ width: '100%', background: '#e3e3e3',  marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div className='m8' style={tableRow}><b>{tenant.name}</b></div>
-              <div className='m8' style={tableRow}>{tenant.email}</div>
-              <div className='m8' style={{tableRow, maxWidth: '100px'}}>{tenant.phoneNumber}</div>
-              <div className='m8' style={tableRow}>{tenant.terminationDate}</div>
-              <div className='m8' style={{tableRow, width: '100px'}}>
+            <div key={tenant._id} className="tableRow">
+              <div className='m8 tableRowDetails'><Typography variant="mdm">{tenant.name}</Typography></div>
+              <div className='m8 tableRowDetails'><Typography variant="md">{tenant.email}</Typography></div>
+              <div className='m8 tableRowDetails' style={{maxWidth: '100px'}}><Typography variant="mdm">{tenant.phoneNumber}</Typography></div>
+              <div className='m8 tableRowDetails'><Typography variant="md">{tenant.terminationDate}</Typography></div>
+              <div className='m8 tableRowDetails' style={{width: '100px'}}>
               <EditOutlinedIcon/> <DeleteOutlineOutlinedIcon/>
               </div>
             </div>

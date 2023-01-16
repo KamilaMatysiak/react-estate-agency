@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import theme from '../../Theme'
-import { Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider} from '@mui/material';
+import { Box, TextField, Typography, ThemeProvider} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOffer, getOffers, getOffersBySearch } from '../../../actions/offers';
 import { Container } from '@mui/system';
@@ -22,12 +22,6 @@ const Offers = () => {
   const [search, setSearch] = useState('');
   const [currentID, setCurrentID] = useState(0);
   const { objects } = useSelector((state) => state.objects);
-
-  let tableRow = {
-    width: '250px', 
-    maxWidth: '300px', 
-    textAlign: 'left'
-  }
 
   useEffect(() => {
     console.log(Number(page));
@@ -56,21 +50,21 @@ const Offers = () => {
           <div style={{ marginBottom: 8, display: 'flex', justifyContent: 'space-between' }}>
             <TextField name="search" varaint="outlined" style={{ width: '100%', margin: 8 }} placeholder='Type to search...' value={search} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={handleKeyDown} />
           </div>
-          <div style={{ width: '100%', background: '#F8F8F8', marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div className='m8' style={tableRow}><b>Name</b></div>
-            <div className='m8' style={tableRow}>Email</div>
-            <div className='m8' style={{tableRow, maxWidth: '100px'}}>Message</div>
-            <div className='m8' style={tableRow}>Estate Id</div>
-            <div className='m8' style={{tableRow, width: '100px'}}>Actions</div>
+          <div className="tableRow" style={{background: '#F8F8F8', marginTop: 8}}>
+           <div className='m8 tableRowDetails' style={{maxWidth: '100px'}}><Typography variant="mdm">Estate Id</Typography></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Name</Typography></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Email</Typography></div>
+            <div className='m8 tableRowDetails' style={{minWidth: '200px'}}><Typography variant="mdm">Message</Typography></div>
+            <div className='m8 tableRowDetails' style={{width: '100px'}}><Typography variant="mdm">Actions</Typography></div>
           </div>
         
           {objects.map((Offer) => (
-            <div key={Offer._id} style={{ width: '100%', background: '#e3e3e3',  marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div className='m8' style={tableRow}><b>{Offer.name}</b></div>
-              <div className='m8' style={tableRow}>{Offer.email}</div>
-              <div className='m8' style={{tableRow, maxWidth: '100px'}}>{Offer.message}</div>
-              <div className='m8' style={tableRow}>{Offer.estateId}</div>
-              <div className='m8' style={{tableRow, width: '100px'}}>
+            <div key={Offer._id} className="tableRow">
+              <div className='m8 tableRowDetails' style={{maxWidth: '100px', overflow: 'hidden'}}><Typography variant="md">{Offer.estateId}</Typography></div>
+              <div className='m8 tableRowDetails'><Typography variant="mdm">{Offer.name}</Typography></div>
+              <div className='m8 tableRowDetails'><Typography variant="md">{Offer.email}</Typography></div>
+              <div className='m8 tableRowDetails' style={{minWidth: '200px'}}><Typography variant="md">{Offer.message}</Typography></div>
+              <div className='m8 tableRowDetails' style={{width: '100px'}}>
               <EditOutlinedIcon/> <DeleteOutlineOutlinedIcon/>
               </div>
             </div>

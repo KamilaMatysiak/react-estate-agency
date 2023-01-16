@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import theme from '../../Theme'
-import { Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider } from '@mui/material';
+import { Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEstate, getEstates } from '../../../actions/estates';
 import { Container } from '@mui/system';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 const AdminEstates = () => {
   const dispatch = useDispatch();
@@ -64,20 +66,20 @@ const AdminEstates = () => {
               Add Estate
             </Button>
           </div>
-          <div style={{ width: '100%', background: '#F8F8F8', marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}><b>Name</b></div>
-            <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>Price</div>
-            <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>Employee</div>
-            <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>Properties</div>
-            <div className='m8' style={{ width: '200px', maxWidth: '200px', textAlign: 'left' }}>Actions</div>
+          <div className="tableRow" style={{background: '#F8F8F8', marginTop: 8}}>
+          <div className='m8 tableRowDetails'><Typography variant="mdm">Employee ID</Typography></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Name</Typography></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Price</Typography></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Properties</Typography></div>
+            <div className='m8 tableRowDetails' style={{width: '100px'}}><Typography variant="mdm">Actions</Typography></div>
           </div>
           {estates.map((estate) => (
-            <div key={estate._id} style={{ width: '100%', background: '#e3e3e3',  marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}><b>{estate.name}</b></div>
-              <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>{estate.price}</div>
-              <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>{estate.employee}</div>
-              <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>properties</div>
-              <div className='m8' style={{ width: '200px', maxWidth: '200px', textAlign: 'left' }}>EDIT DELETE</div>
+            <div key={estate._id} className="tableRow">
+              <div className='m8 tableRowDetails'><Typography variant="md">{estate.employee}</Typography></div>
+              <div className='m8 tableRowDetails'><Typography variant="md">{estate.name}</Typography></div>
+              <div className='m8 tableRowDetails'><Typography variant="md">{estate.price}</Typography></div>
+              <div className='m8 tableRowDetails'><Typography variant="mdm" color="secondary.dark">See properties</Typography></div>
+              <div className='m8 tableRowDetails' style={{width: '100px'}}><EditOutlinedIcon/> <DeleteOutlineOutlinedIcon/></div>
             </div>
           ))}
         </Box>

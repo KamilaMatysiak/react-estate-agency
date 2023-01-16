@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import theme from '../../Theme'
-import {Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, CardMedia, ThemeProvider} from '@mui/material';
+import {Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, CardMedia, ThemeProvider, Typography} from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
 import { createEmployee, getEmployees, getEmployeesBySearch } from '../../../actions/employees';
 import FileBase from 'react-file-base64';
@@ -96,14 +96,23 @@ const Employees = () => {
             </Button>
           </div>
 
+          <div className="tableRow" style={{background: '#F8F8F8', marginTop: 8}}>
+           <div className='m8 tableRowDetails' style={{maxWidth: '16px'}}></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Name</Typography></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Username</Typography></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Email</Typography></div>
+            <div className='m8 tableRowDetails' style={{maxWidth: '100px'}}><Typography variant="mdm">Phone</Typography></div>
+            <div className='m8 tableRowDetails' style={{width: '100px'}}><Typography variant="mdm">Actions</Typography></div>
+          </div>
+
           {objects.map((employee) => (
-            <div key={employee._id} style={{width: '100%', background: '#e3e3e3', margin: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            <div key={employee._id} className="tableRow">
               <CardMedia style={{width: 32, height: 32, margin: 16, borderRadius: 180}} image={employee.avatar}/>
-              <div className='m8' style={{width: '200px', maxWidth: '300px', textAlign: 'left'}}>{employee.username}</div>
-              <div className='m8' style={{width: '200px', maxWidth: '300px', textAlign: 'left'}}><b>{employee.name}</b></div>
-              <div className='m8' style={{width: '200px', maxWidth: '300px', textAlign: 'left'}}>{employee.email}</div>
-              <div className='m8' style={{width: '200px', maxWidth: '300px', textAlign: 'left'}}>{employee.phoneNumber}</div>
-              <div className='m8' style={{width: '200px', maxWidth: '200px', textAlign: 'left'}}><EditOutlinedIcon/> <DeleteOutlineOutlinedIcon/></div>
+              <div className='m8 tableRowDetails'><Typography variant="mdm">{employee.name}</Typography></div>
+              <div className='m8 tableRowDetails'><Typography variant="md">{employee.username}</Typography></div>
+              <div className='m8 tableRowDetails'><Typography variant="md">{employee.email}</Typography></div>
+              <div className='m8 tableRowDetails' style={{width: '100px'}}><Typography variant="md">{employee.phoneNumber}</Typography></div>
+              <div className='m8 tableRowDetails' style={{width: '100px'}}><EditOutlinedIcon/> <DeleteOutlineOutlinedIcon/></div>
             </div>
           ))}
           <Box sx={{paddingTop: 4}}>
