@@ -35,7 +35,7 @@ export const getEstate = async (req, res) => {
 export const createEstates = async (req, res) => {
     console.log('create estates')
     console.log(req.body)
-    const estate = {...req.body, bathrooms:4, city:"Poznan", bedrooms:1} ;
+    const estate = req.body;
 
     const newEstate = new Estate({ ...estate, estateProperties:{...estate}, estateLocalization:{...estate}});
     console.log('create estates 4')
