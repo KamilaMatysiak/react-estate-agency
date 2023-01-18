@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { FETCH_ALL, FETCH_BY_SEARCH, CREATE } from '../constants/actionTypes';
+import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, DELETE, UPDATE } from '../constants/actionTypes';
 
 export const getEmployees = (page) => async(dispatch) => {
     try {
@@ -27,5 +27,25 @@ export const getEmployeesBySearch = (searchQuery) => async(dispatch) => {
     }
     catch(error) {
         console.log(error);
+    }
+}
+
+export const updateEmployee = (id, employee) => async (dispatch) => {
+    try {
+        const { data } = await api.updateEmployee(id, employee);
+
+        dispatch({type: UPDATE, payload: data });
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+export const deleteEmployee = (id) => async (dispatch) => {
+    try {
+        console.log('im trying ;-;', id)
+        await api.deleteEmployee(id);
+        dispatch({type: DELETE, payload: id})
+    } catch(error) {
+        console.log(error)
     }
 }

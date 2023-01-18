@@ -19,9 +19,7 @@ export const getOffers = async (req, res) => {
 }
 
 export const getOffersBySearch = async (req, res) => {
-    console.log("by search")
     const {searchQuery} = req.query;
-    console.log(searchQuery);
     
     try {
         const name = new RegExp(searchQuery, 'i');

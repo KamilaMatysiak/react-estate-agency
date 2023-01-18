@@ -2,13 +2,13 @@ import React, {useState, useEffect} from 'react'
 import theme from '../../Theme'
 import {Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, CardMedia, ThemeProvider, Typography} from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
-import { createEmployee, getEmployees, getEmployeesBySearch } from '../../../actions/employees';
+import { createEmployee, getEmployees, getEmployeesBySearch, deleteEmployee, updateEmployee } from '../../../actions/employees';
 import FileBase from 'react-file-base64';
 import { Container } from '@mui/system';
 import Pagination from '../../Pagination'
 import { useNavigate, useLocation } from 'react-router-dom';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'; 
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -16,28 +16,37 @@ function useQuery() {
 
 const Employees = () => {
   const dispatch = useDispatch();
-  const query = useQuery();
   const navigate = useNavigate();
+  const query = useQuery();
   const page = query.get('page') || 1;
   const searchQuery = query.get('searchQuery');
   const [search, setSearch] = useState('');
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [currentID, setCurrentID] = useState(0);
   const [employeeData, setEmployeeData] = useState({
     avatar: '',
     username: '',
     name: '',
     email: '',
-    phonenumber: '',
+    phoneNumber: '',
     password: ''
   });
-  const [currentID, setCurrentID] = useState(0);
+
   const {objects} = useSelector((state) => state.objects);
 
-  useEffect(() => {
-    dispatch(getEmployees());
+  useEffect((page) => {
+    dispatch(getEmployees(page));
+    console.log("useEffect");
   }, [currentID, dispatch])
 
   const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleEditOpen = (e) => {
+    console.log(e._id);
+    setCurrentID(e._id);
+    setEmployeeData({ ...e});
     setOpen(true);
   };
 
@@ -45,10 +54,30 @@ const Employees = () => {
     setOpen(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleDelete = (id) => {
+    dispatch(deleteEmployee(id));
+    setCurrentID(0);
+  }
 
-    dispatch(createEmployee({...employeeData}));
+  const handleSubmit = (e) => {
+    console.log("handleSubmit");
+    e.preventDefault();
+    console.log(currentID);
+    if(currentID !== 0) {
+      console.log("edit");
+      dispatch(updateEmployee(currentID, {...employeeData}));
+    } 
+    else {
+      console.log('add');
+      dispatch(createEmployee({...employeeData}));
+    } 
+
+    clear();
+  }
+
+  const clear = () => {
+    setEmployeeData({ avatar: '', username: '', name: '', email: '', phoneNumber: '', password: ''});
+    setCurrentID(0);
   }
 
   const handleKeyDown = (e) => {
@@ -67,22 +96,22 @@ const Employees = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container sx={{marginTop: 8}}>
+      <Container sx={{marginLeft: '280px'}}>
 
       <Dialog open={open} onClose={handleClose} PaperProps={{style: {background: '#fff'}}}>
         <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{backgroundColor: "#fff"}}>
-          <DialogTitle>Add Employee</DialogTitle>
+          <DialogTitle>{currentID !== 0 ? 'Edit' : 'Add'} Employee</DialogTitle>
           <DialogContent>
             <FileBase type="file" multiple={false} onDone={({base64}) => setEmployeeData({...employeeData, avatar: base64})}/>
-            <TextField variant="outlined" autoFocus margin="dense" id="username" label="Username" type="text" fullWidth onChange={(e)=> setEmployeeData({...employeeData, username: e.target.value})}/>
-            <TextField variant="outlined" autoFocus margin="dense" id="name" label="Name" type="text" fullWidth onChange={(e)=> setEmployeeData({...employeeData, name: e.target.value})}/>
-            <TextField variant="outlined" autoFocus margin="dense" id="email" label="Email Address" type="email" fullWidth onChange={(e)=> setEmployeeData({...employeeData, email: e.target.value})}/>
-            <TextField variant="outlined" autoFocus margin="dense" id="phoneNumber" label="Phone Number" type="text" fullWidth onChange={(e)=> setEmployeeData({...employeeData, phoneNumber: e.target.value})}/>
-            <TextField variant="outlined" autoFocus margin="dense" id="password" label="Password" type="pasword" fullWidth onChange={(e)=> setEmployeeData({...employeeData, password: e.target.value})}/>
+            <TextField variant="outlined" autoFocus margin="dense" id="username" label="Username" type="text" fullWidth value={employeeData.username} onChange={(e)=> setEmployeeData({...employeeData, username: e.target.value})}/>
+            <TextField variant="outlined" autoFocus margin="dense" id="name" label="Name" type="text" fullWidth value={employeeData.name} onChange={(e)=> setEmployeeData({...employeeData, name: e.target.value})}/>
+            <TextField variant="outlined" autoFocus margin="dense" id="email" label="Email Address" type="email" fullWidth value={employeeData.email} onChange={(e)=> setEmployeeData({...employeeData, email: e.target.value})}/>
+            <TextField variant="outlined" autoFocus margin="dense" id="phoneNumber" label="Phone Number" type="text" fullWidth value={employeeData.phoneNumber} onChange={(e)=> setEmployeeData({...employeeData, phoneNumber: e.target.value})}/>
+            {currentID == 0 ? <TextField variant="outlined" autoFocus margin="dense" id="password" label="Password" type="pasword" fullWidth onChange={(e)=> setEmployeeData({...employeeData, password: e.target.value})}/> : <></>}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit" variant="contained" onClick={handleClose}>Add Employee</Button>
+            <Button type="submit" variant="contained" onClick={handleClose}>{currentID == 0 ? 'Add' : 'Edit'} Employee</Button>
             </DialogActions>
           </form>
       </Dialog>
@@ -112,7 +141,7 @@ const Employees = () => {
               <div className='m8 tableRowDetails'><Typography variant="md">{employee.username}</Typography></div>
               <div className='m8 tableRowDetails'><Typography variant="md">{employee.email}</Typography></div>
               <div className='m8 tableRowDetails' style={{width: '100px'}}><Typography variant="md">{employee.phoneNumber}</Typography></div>
-              <div className='m8 tableRowDetails' style={{width: '100px'}}><EditOutlinedIcon/> <DeleteOutlineOutlinedIcon/></div>
+              <div className='m8 tableRowDetails' style={{width: '100px', display: 'flex'}}><div className="actionButton" onClick={() => handleEditOpen(employee)}><EditOutlinedIcon/></div> <div className="actionButton" onClick={() => handleDelete(employee._id)}><DeleteOutlineOutlinedIcon/></div></div>
             </div>
           ))}
           <Box sx={{paddingTop: 4}}>

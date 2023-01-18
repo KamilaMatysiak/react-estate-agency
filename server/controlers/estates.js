@@ -45,9 +45,7 @@ export const createEstates = async (req, res) => {
     const estate = req.body;
     const estateProps = req.body;
     const estateLoc = req.body;
-    console.log("req.body:", estate);
     const newEstate = new Estate({ ...estate, estateProps, estateLoc });
-    console.log("new:", newEstate);
     try {
         await newEstate.save();
         res.status(200).json(newEstate);

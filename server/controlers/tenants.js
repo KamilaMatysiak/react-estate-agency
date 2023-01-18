@@ -18,9 +18,7 @@ export const getTenants = async (req, res) => {
 }
 
 export const getTenantsBySearch = async (req, res) => {
-    console.log("by search")
     const {searchQuery} = req.query;
-    console.log(searchQuery);
     
     try {
         const name = new RegExp(searchQuery, 'i');
