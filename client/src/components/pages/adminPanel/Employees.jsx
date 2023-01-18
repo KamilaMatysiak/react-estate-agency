@@ -37,7 +37,7 @@ const Employees = () => {
   useEffect((page) => {
     dispatch(getEmployees(page));
     console.log("useEffect");
-  }, [currentID, dispatch])
+  }, [dispatch])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -56,12 +56,12 @@ const Employees = () => {
 
   const handleDelete = (id) => {
     dispatch(deleteEmployee(id));
-    setCurrentID(0);
+    dispatch(getEmployees(page));
   }
 
   const handleSubmit = (e) => {
-    console.log("handleSubmit");
     e.preventDefault();
+    console.log("handleSubmit");
     console.log(currentID);
     if(currentID !== 0) {
       console.log("edit");
@@ -73,6 +73,8 @@ const Employees = () => {
     } 
 
     clear();
+
+    dispatch(getEmployees(page));
   }
 
   const clear = () => {
