@@ -34,3 +34,4 @@ export const deleteTenant = (id) => API.delete(`/admin/tenants/${id}`);
 export const fetchOffers = (page) => API.get(`/admin/offers?page=${page}`);
 export const fetchOffersBySearch = (searchQuery) => API.get(`/admin/offers/search?searchQuery=${searchQuery.search || 'none'}`);
 export const createOffer = (newOffer) => API.post('/admin/offers', newOffer);
+export const deleteOffer = (id) => API.delete(`/admin/offers/${id}`);

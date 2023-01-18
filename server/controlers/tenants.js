@@ -43,13 +43,24 @@ export const createTenant = async (req, res) => {
 }
 
 export const updateTenant = async (req, res) => {
-    const {_id} = req.params;
+    const {id} = req.params;
     const tenant = req.body;
 
-    if(!mongoose.Types.ObjectId.isValid(_id)) {
+    if(!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({message: "No tenant to update"});
     }
 
-    const updatedTenant = await Tenant.findByIdAndUpdate(_id, {...tenant, _id}, {new: true});
+    const updatedTenant = await Tenant.findByIdAndUpdate(id, {...tenant, id}, {new: true});
     res.json(updatedTenant);
+}
+
+export const deleteTenant = async(req, res) => {
+    const {id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({message: "No tenant to delete"});
+    }
+
+    await Tenant.findByIdAndDelete(id);
+    res.json({message: 'Tenant deleted'});
 }

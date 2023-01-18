@@ -98,7 +98,8 @@ const Employees = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container sx={{marginLeft: '280px'}}>
+      
+      <Container sx={{marginTop: 8}}>
 
       <Dialog open={open} onClose={handleClose} PaperProps={{style: {background: '#fff'}}}>
         <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{backgroundColor: "#fff"}}>
@@ -143,7 +144,7 @@ const Employees = () => {
               <div className='m8 tableRowDetails'><Typography variant="md">{employee.username}</Typography></div>
               <div className='m8 tableRowDetails'><Typography variant="md">{employee.email}</Typography></div>
               <div className='m8 tableRowDetails' style={{width: '100px'}}><Typography variant="md">{employee.phoneNumber}</Typography></div>
-              <div className='m8 tableRowDetails' style={{width: '100px', display: 'flex'}}><div className="actionButton" onClick={() => handleEditOpen(employee)}><EditOutlinedIcon/></div> <div className="actionButton" onClick={() => handleDelete(employee._id)}><DeleteOutlineOutlinedIcon/></div></div>
+              <div className='m8 tableRowDetails' style={{width: '100px', display: 'flex'}}><div className="actionButton" onClick={() => handleEditOpen(employee)}><EditOutlinedIcon/></div> <div className="actionButton delete" onClick={() => handleDelete(employee._id)}><DeleteOutlineOutlinedIcon/></div></div>
             </div>
           ))}
           <Box sx={{paddingTop: 4}}>

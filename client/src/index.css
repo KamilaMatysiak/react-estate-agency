@@ -168,10 +168,15 @@ body {
 
 .actionButton {
     cursor: pointer;
-    width: auto;
+    width: 32px;
+    text-align: center;
     padding: 8px;
 }
 
 .actionButton:hover {
-    background: #e4e4e4;
+    color: #555;
+}
+
+.delete:hover {
+    color: rgb(231, 72, 72);
 }
