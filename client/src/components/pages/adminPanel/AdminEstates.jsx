@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import theme from '../../Theme'
-import { FormHelperText, OutlinedInput, InputAdornment, InputLabel, FormControl, Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider, Grid, Divider, Autocomplete, DialogContentText } from '@mui/material';
+import { FormHelperText, OutlinedInput, InputAdornment, InputLabel, FormControl, Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider, Grid, Divider, Autocomplete, DialogContentText, Paper } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEstate, getEstates } from '../../../actions/estates';
+import { getEmployees } from '../../../actions/employees';
 import { Container } from '@mui/system';
-
-
 
 const AdminEstates = () => {
   const dispatch = useDispatch();
@@ -16,16 +15,27 @@ const AdminEstates = () => {
     name: '',
     price: '',
     status: '',
-    employee: '',
+    employeeId: '',
     bathrooms: '',
   })
+
+  const options = [
+    { name: "Garden", value: false },
+    { name: "Garage", value: false },
+    { name: "Pool", value: false },
+    { name: "Air Conditioning", value: false },
+    { name: "Electric Shutters", value: false },
+    { name: "Underfloor Heating", value: false },
+  ];
 
   const [currentID, serCurrentID] = useState(0);
   const { estates } = useSelector((state) => state.estates);
 
+
   useEffect(() => {
     dispatch(getEstates());
   }, [currentID, dispatch])
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -80,7 +90,7 @@ const AdminEstates = () => {
                       id="price"
                       startAdornment={<InputAdornment position="start">$</InputAdornment>}
                       label="Price"
-                      onChange={(e) => setEstateData({ ...estateData, price: e.target.value })}
+                      onChange={(e) => setEstateData({ ...estateData, employeeId: e.target.value })}
                     />
                   </FormControl>
                   <TextField InputLabelProps={{ shrink: true }} variant="outlined" autoFocus margin="dense" id="contructionYear" label="Year of construction" type="date" fullWidth onChange={(e) => setEstateData({ ...estateData, contructionYear: e.target.value })} />
@@ -156,10 +166,15 @@ const AdminEstates = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Autocomplete
-                      disablePortal
-                      id="employeeId"
+                      PaperComponent={({ children }) => (
+                        <Paper style={{ background: "white" }}>{children}</Paper>
+                      )}
+                      multiple
+                      id="extrafeatures"
+                      options={options}
+                      getOptionLabel={(option) => option.name}
                       fullWidth
-                      renderInput={(params) => <TextField {...params} label="Employee ID" />}
+                      renderInput={(params) => <TextField {...params} label="Extra features" />}
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -179,7 +194,7 @@ const AdminEstates = () => {
                     </Dialog>
                   </Grid>
                   <Grid item xs={6}>
-                    <Button variant="outlined" onClick={handleInnerClickOpen}>
+                    <Button variant="outlined" style={{marginBottom:'16px'}} onClick={handleInnerClickOpen}>
                       Description
                     </Button>
                     <Dialog open={innerOpen} onClose={handleInnerClose} fullWidth PaperProps={{ style: { background: '#fff' } }}>

@@ -26,6 +26,7 @@ const theme = createTheme({
   shape: {
     borderRadius: 0,
   },
+  
 
   typography: {
     fontFamily: 'Montserrat',
