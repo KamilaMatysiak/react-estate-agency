@@ -15,8 +15,6 @@ const AdminEstates = () => {
     name: '',
     price: '',
     status: '',
-    employeeId: '',
-    bathrooms: '',
   })
 
   const options = [
@@ -90,9 +88,10 @@ const AdminEstates = () => {
                       id="price"
                       startAdornment={<InputAdornment position="start">$</InputAdornment>}
                       label="Price"
-                      onChange={(e) => setEstateData({ ...estateData, employeeId: e.target.value })}
+                      onChange={(e) => setEstateData({ ...estateData, price: e.target.value })}
                     />
                   </FormControl>
+                  <TextField label="Status" margin="dense" autoFocus id="statusOptions" type="text" fullWidth onChange={(e) => setEstateData({ ...estateData, status: e.target.value })} />
                   <TextField InputLabelProps={{ shrink: true }} variant="outlined" autoFocus margin="dense" id="contructionYear" label="Year of construction" type="date" fullWidth onChange={(e) => setEstateData({ ...estateData, contructionYear: e.target.value })} />
                 </DialogContent>
                 <DialogActions>
@@ -194,7 +193,7 @@ const AdminEstates = () => {
                     </Dialog>
                   </Grid>
                   <Grid item xs={6}>
-                    <Button variant="outlined" style={{marginBottom:'16px'}} onClick={handleInnerClickOpen}>
+                    <Button variant="outlined" style={{ marginBottom: '16px' }} onClick={handleInnerClickOpen}>
                       Description
                     </Button>
                     <Dialog open={innerOpen} onClose={handleInnerClose} fullWidth PaperProps={{ style: { background: '#fff' } }}>
