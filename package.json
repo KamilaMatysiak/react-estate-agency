@@ -4,5 +4,8 @@
     "@mui/styles": "^5.11.2",
     "create-react-app": "^5.0.1",
     "npx": "^10.2.2"
+  },
+  "devDependencies": {
+    "@iconify/react": "^4.0.1"
   }
 }
