@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import theme from '../../Theme'
-import { FormHelperText, OutlinedInput, InputAdornment, InputLabel, FormControl, Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider, Grid, Divider, Autocomplete, DialogContentText, Paper } from '@mui/material';
+import { FormHelperText, OutlinedInput, InputAdornment, InputLabel, FormControl, Typography, Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider, Grid, Divider, Autocomplete, DialogContentText, Paper } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEstate, getEstates } from '../../../actions/estates';
 import { getEmployees } from '../../../actions/employees';
@@ -244,12 +244,12 @@ const AdminEstates = () => {
             <div className='m8 tableRowDetails' style={{width: '100px'}}><Typography variant="mdm">Actions</Typography></div>
           </div>
           {estates.map((estate) => (
-            <div key={estate._id} style={{ width: '100%', background: '#e3e3e3', marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}><b>{estate.name}</b></div>
-              <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>{estate.price}</div>
-              <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>{estate.employee}</div>
-              <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>properties</div>
-              <div className='m8' style={{ width: '200px', maxWidth: '200px', textAlign: 'left' }}>EDIT DELETE</div>
+            <div key={estate._id} className="tableRow">
+              <div className='m8 tableRowDetails'><Typography variant="md">{estate.employee}</Typography></div>
+              <div className='m8 tableRowDetails'><Typography variant="md">{estate.name}</Typography></div>
+              <div className='m8 tableRowDetails'><Typography variant="md">{estate.price}</Typography></div>
+              <div className='m8 tableRowDetails'><Typography variant="mdm" color="secondary.dark">See properties</Typography></div>
+              <div className='m8 tableRowDetails' style={{width: '100px'}}><EditOutlinedIcon/> <DeleteOutlineOutlinedIcon/></div>
             </div>
           ))}
         </Box>
