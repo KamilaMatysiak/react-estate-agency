@@ -11,7 +11,7 @@ import placeholder from '../data/images/estates/placeholder.png'
 const EstateCard = ({estate}) => {
   return (
     <ThemeProvider theme={theme}>
-        <Card sx={{maxWidth: 350, padding: 0, margin: 0}}>
+        <Card sx={{maxWidth: 350, padding: 0, margin: 2}}>
             <CardMedia 
                 sx={{padding: 0, margin: 0}}
                 component="img"
