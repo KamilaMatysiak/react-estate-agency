@@ -7,6 +7,7 @@ import login from './routes/login.js';
 import estateRoutes from './routes/estates.js'
 import employeeRoutes from './routes/employees.js'
 import tenantRoutes from './routes/tenants.js'
+import offerRoutes from './routes/offers.js'
 
 const app = express();
 dotenv.config();
@@ -19,6 +20,7 @@ app.use('/login', login);
 app.use('/admin/estates', estateRoutes);
 app.use('/admin/employees', employeeRoutes);
 app.use('/admin/tenants', tenantRoutes);
+app.use('/admin/offers', offerRoutes);
 
 const PORT = process.env.PORT || 5000;
 

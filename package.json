@@ -3,6 +3,7 @@
     "@material-ui/styles": "^4.11.5",
     "@mui/styles": "^5.11.2",
     "create-react-app": "^5.0.1",
+    "date-fns": "^2.29.3",
     "npx": "^10.2.2"
   },
   "devDependencies": {

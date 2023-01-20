@@ -30,7 +30,6 @@ export const register = async (req, res) => {
     try {
         const exsistingEmployee = await Employee.findOne({username});
         if(exsistingEmployee) return res.status(400).json({message: "User already exsist!"});
-        console.log({username, password});
         const hash = await bcrypt.hash(password, 12);
         const result = await Employee.create({username, password: hash})
         const token = jwt.sign({username: result.username, id:result._id}, process.env.JWT_SECRET, {expiresIn: '1h'});

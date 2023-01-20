@@ -7,7 +7,7 @@ import { ThemeProvider } from '@mui/material';
 const Estates = () => {
   return (
   <ThemeProvider theme={theme}>
-   <div style={{marginTop: 96, height: '100%', width: '100vw', display: 'flex'}}>
+   <div style={{marginTop: 96, height: '100%', width: '98vw', display: 'flex'}}>
         <EstateSidebar/>
         <Outlet/>
     </div>

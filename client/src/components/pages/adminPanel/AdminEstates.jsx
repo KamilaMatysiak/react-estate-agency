@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createEstate, getEstates } from '../../../actions/estates';
 import { getEmployees } from '../../../actions/employees';
 import { Container } from '@mui/system';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 const AdminEstates = () => {
   const dispatch = useDispatch();
@@ -234,12 +236,12 @@ const AdminEstates = () => {
               Add Estate
             </Button>
           </div>
-          <div style={{ width: '100%', background: '#F8F8F8', marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}><b>Name</b></div>
-            <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>Price</div>
-            <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>Employee</div>
-            <div className='m8' style={{ width: '200px', maxWidth: '300px', textAlign: 'left' }}>Properties</div>
-            <div className='m8' style={{ width: '200px', maxWidth: '200px', textAlign: 'left' }}>Actions</div>
+          <div className="tableRow" style={{background: '#F8F8F8', marginTop: 8}}>
+          <div className='m8 tableRowDetails'><Typography variant="mdm">Employee ID</Typography></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Name</Typography></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Price</Typography></div>
+            <div className='m8 tableRowDetails'><Typography variant="mdm">Properties</Typography></div>
+            <div className='m8 tableRowDetails' style={{width: '100px'}}><Typography variant="mdm">Actions</Typography></div>
           </div>
           {estates.map((estate) => (
             <div key={estate._id} style={{ width: '100%', background: '#e3e3e3', marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

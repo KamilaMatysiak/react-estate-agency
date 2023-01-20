@@ -50,6 +50,7 @@ function App() {
             <Route path="/admin/estates" element={<AdminEstates/>}/>
             <Route path="/admin/offers" element={<Offers/>}/>
             <Route path="/admin/tenants" element={<Tenants/>}/>
+            <Route path="/admin/tenants/search" element={<Tenants/>}/>
         </Route>
         <Route path='/*' element={<NotFound/>}/>
       </Routes>
