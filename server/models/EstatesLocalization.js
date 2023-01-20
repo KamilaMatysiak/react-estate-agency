@@ -8,6 +8,4 @@ const EstateLocalizationSchema = new Schema({
     estateId: {type: Schema.Types.ObjectId, ref: 'Estate'},
 });
 
-const EstateLocalization = mongoose.model('EstateLocalization', EstateLocalizationSchema);
-
-export default EstateLocalization;
+export default EstateLocalizationSchema;
