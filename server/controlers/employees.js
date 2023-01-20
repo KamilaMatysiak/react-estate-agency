@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 
 export const getEmployees = async (req, res) => {
     const {page} = req.query;
-    console.log(page);
 
     try {
         const LIMIT = 5;
@@ -26,9 +25,7 @@ export const getEmployeesBySearch = async (req, res) => {
     
     try {
         const name = new RegExp(searchQuery, 'i');
-        console.log("title:", name)
         const employees = await Employee.find({name})
-        console.log(employees);
 
         res.json({data: employees});
     } catch (error) {
@@ -52,10 +49,8 @@ export const getEmployee = async (req, res) => {
 export const createEmployee = async (req, res) => {
     console.log('create employee')
     const employee = req.body;
-    console.log("req.body:", employee);
     const hash = await bcrypt.hash(employee.password, 12);
     const newEmployee = new Employee({...employee, password: hash});
-    console.log("new:", newEmployee)
     try {
         await newEmployee.save();
         res.status(200).json(newEmployee);
@@ -65,13 +60,25 @@ export const createEmployee = async (req, res) => {
 }
 
 export const updateEmployee = async (req, res) => {
-    const {_id} = req.params;
+    console.log("nie umiem pisac, update");
+    const {id} = req.params;
     const employee = req.body;
 
-    if(!mongoose.Types.ObjectId.isValid(_id)) {
+    if(!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({message: "No employee to update"});
     }
 
-    const updatedEmployee = await Employee.findByIdAndUpdate(_id, {...employee, _id}, {new: true});
+    const updatedEmployee = await Employee.findByIdAndUpdate(id, {...employee, id}, {new: true});
     res.json(updatedEmployee);
+}
+
+export const deleteEmployee = async(req, res) => {
+    const {id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({message: "No employee to delete"});
+    }
+
+    await Employee.findByIdAndDelete(id);
+    res.json({message: 'Employee deleted'});
 }

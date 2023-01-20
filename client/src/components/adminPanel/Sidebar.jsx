@@ -40,7 +40,7 @@ const Sidebar = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ backgroundColor: "primary.main", minHeigth: '100%', width: 250, display: 'flex', flexDirection: 'column'}}>
+      <Box sx={{ backgroundColor: "primary.main", minHeigth: '100vh', height: '100vh', width: 250, display: 'flex', flexDirection: 'column'}}>
         <div className="admin-panel">
           <Typography variant="lg">Admin Panel</Typography>
         </div>

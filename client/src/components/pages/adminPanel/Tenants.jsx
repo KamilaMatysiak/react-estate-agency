@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import theme from '../../Theme'
 import { Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider, Typography} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTenant, getTenants, getTenantsBySearch } from '../../../actions/tenants';
+import { createTenant, getTenants, getTenantsBySearch, updateTenant, deleteTenant } from '../../../actions/tenants';
 import { Container } from '@mui/system';
 import Pagination from '../../Pagination'
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -41,12 +41,41 @@ const Tenants = () => {
 
   const handleClose = () => {
     setOpen(false);
+  }
+
+  const handleEditOpen = (t) => {
+    setCurrentID(t._id);
+    setTenantData({ ...t});
+    setOpen(true);
   };
+
+  const handleDelete = (id) => {
+    dispatch(deleteTenant(id));
+    dispatch(getTenants(page));
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("handleSubmit");
+    console.log(currentID);
+    if(currentID !== 0) {
+      console.log("edit");
+      dispatch(updateTenant(currentID, {...tenantData}));
+    } 
+    else {
+      console.log('add');
+      dispatch(createTenant({...tenantData}));
+    } 
 
-    dispatch(createTenant({ ...tenantData }));
+    clear();
+
+    dispatch(getTenants(page));
+  }
+
+  const clear = () => {
+    setOpen(false);
+    setTenantData({name: '', email: '', phonenumber: '', terminationDate: ''});
+    setCurrentID(0);
   }
 
   const handleKeyDown = (e) => {
@@ -65,20 +94,20 @@ const Tenants = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container sx={{ marginTop: 8 }}>
+      <Container sx={{marginTop: 8}}>
 
-        <Dialog open={open} onClose={handleClose} PaperProps={{ style: { background: '#fff' } }}>
+        <Dialog open={open} onClose={clear} PaperProps={{ style: { background: '#fff' } }}>
           <form autoComplete="off" noValidate onSubmit={handleSubmit}>
-            <DialogTitle>Add Tenant</DialogTitle>
+            <DialogTitle>{currentID !== 0 ? 'Edit' : 'Add'} Tenant</DialogTitle>
             <DialogContent>
-              <TextField variant="outlined" autoFocus margin="dense" id="name" label="Name" type="text" fullWidth onChange={(e) => setTenantData({ ...tenantData, name: e.target.value })} />
-              <TextField variant="outlined" autoFocus margin="dense" id="email" label="Email Address" type="email" fullWidth onChange={(e) => setTenantData({ ...tenantData, email: e.target.value })} />
-              <TextField variant="outlined" autoFocus margin="dense" id="phoneNumber" label="Phone Number" type="text" fullWidth onChange={(e) => setTenantData({ ...tenantData, phoneNumber: e.target.value })} />
-              <TextField InputLabelProps={{ shrink: true }} variant="outlined" autoFocus margin="dense" id="terminationDate" label="Termination date" type="date" fullWidth onChange={(e) => setTenantData({ ...tenantData, terminationDate: e.target.value })} />
+              <TextField variant="outlined" autoFocus margin="dense" id="name" label="Name" type="text" fullWidth value={tenantData.name} onChange={(e) => setTenantData({ ...tenantData, name: e.target.value })} />
+              <TextField variant="outlined" autoFocus margin="dense" id="email" label="Email Address" type="email" fullWidth value={tenantData.email} onChange={(e) => setTenantData({ ...tenantData, email: e.target.value })} />
+              <TextField variant="outlined" autoFocus margin="dense" id="phoneNumber" label="Phone Number" type="text" fullWidth value={tenantData.phoneNumber} onChange={(e) => setTenantData({ ...tenantData, phoneNumber: e.target.value })} />
+              <TextField InputLabelProps={{ shrink: true }} variant="outlined" autoFocus margin="dense" id="terminationDate" label="Termination date" type="date" fullWidth value={tenantData.terminationDate} onChange={(e) => setTenantData({ ...tenantData, terminationDate: e.target.value })} />
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button type="submit" variant="contained" onClick={handleClose}>Add Tenant</Button>
+              <Button type="submit" variant="contained" onClick={handleClose}>{currentID !== 0 ? 'Edit' : 'Add'} Tenant</Button>
             </DialogActions>
           </form>
         </Dialog>
@@ -106,9 +135,7 @@ const Tenants = () => {
               <div className='m8 tableRowDetails'><Typography variant="md">{tenant.email}</Typography></div>
               <div className='m8 tableRowDetails' style={{maxWidth: '100px'}}><Typography variant="mdm">{tenant.phoneNumber}</Typography></div>
               <div className='m8 tableRowDetails'><Typography variant="md">{tenant.terminationDate}</Typography></div>
-              <div className='m8 tableRowDetails' style={{width: '100px'}}>
-              <EditOutlinedIcon/> <DeleteOutlineOutlinedIcon/>
-              </div>
+              <div className='m8 tableRowDetails' style={{width: '100px', display: 'flex'}}><div className="actionButton" onClick={() => handleEditOpen(tenant)}><EditOutlinedIcon/></div> <div className="actionButton delete" onClick={() => handleDelete(tenant._id)}><DeleteOutlineOutlinedIcon/></div></div>
             </div>
           ))}
           <Box sx={{paddingTop: 4}}>

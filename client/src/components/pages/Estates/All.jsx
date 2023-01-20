@@ -3,7 +3,6 @@ import EstateCard from "../../EstateCard";
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import { getEstates } from '../../../actions/estates';
-import estates from '../../../reducers/estates';
 
 const All = () => {
   const dispatch = useDispatch();
@@ -16,9 +15,20 @@ const All = () => {
   
   return (
     <Box>
-      {estates.map((estate) => (
-        <EstateCard key={estate._id} estate={estate}/>
-      ))}
+      <Grid
+          container
+          direction="row"
+          spacing={5}
+          alignItems="stretch"
+          maxWidth='80vw'
+          margin={2}
+        >
+
+        {estates.map((estate) => (
+                <EstateCard key={estate._id} estate={estate}/>
+              ))}
+
+      </Grid>
     </Box>
   )
 }

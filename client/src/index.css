@@ -165,3 +165,18 @@ body {
     text-align: left;
     padding: 16px;
 }
+
+.actionButton {
+    cursor: pointer;
+    width: 32px;
+    text-align: center;
+    padding: 8px;
+}
+
+.actionButton:hover {
+    color: #555;
+}
+
+.delete:hover {
+    color: rgb(231, 72, 72);
+}

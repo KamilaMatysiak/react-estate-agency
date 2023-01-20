@@ -19,9 +19,7 @@ export const getOffers = async (req, res) => {
 }
 
 export const getOffersBySearch = async (req, res) => {
-    console.log("by search")
     const {searchQuery} = req.query;
-    console.log(searchQuery);
     
     try {
         const name = new RegExp(searchQuery, 'i');
@@ -56,4 +54,16 @@ export const createOffer = async (req, res) => {
     } catch(error) {
         res.status(404).json({message: error.message})
     }
+}
+
+
+export const deleteOffer = async(req, res) => {
+    const {id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({message: "No offer to delete"});
+    }
+
+    await Offer.findByIdAndDelete(id);
+    res.json({message: 'Offer deleted'});
 }

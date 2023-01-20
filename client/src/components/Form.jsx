@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Box, TextField, Button } from '@mui/material'
 import theme from './Theme'
 import { useDispatch } from 'react-redux';
@@ -11,12 +11,18 @@ const Form = ({estate}) => {
     email: '',
     message: '',
     estateId: ''
-  });
+  });  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     offerData.estateId=estate;
     dispatch(createOffer({ ...offerData }));
+    setOfferData({
+      name: '',
+      email: '',
+      message: '',
+      estateId: ''
+    })
   }
 
   return (
@@ -30,6 +36,7 @@ const Form = ({estate}) => {
             required 
             fullWidth
             margin='dense'
+            value={offerData.name}
             onChange={(e) => setOfferData({ ...offerData, name: e.target.value })}
             />
           <TextField 
@@ -39,6 +46,7 @@ const Form = ({estate}) => {
             required 
             fullWidth
             margin='dense'
+            value={offerData.email}
             onChange={(e) => setOfferData({ ...offerData, email: e.target.value })}
             />
           <TextField 
@@ -49,6 +57,7 @@ const Form = ({estate}) => {
             id="outlined-textarea"
             fullWidth
             margin='dense'
+            value={offerData.message}
             onChange={(e) => setOfferData({ ...offerData, message: e.target.value })}
             />
           <Button fullWidth variant="contained" type="submit">Send Message</Button>

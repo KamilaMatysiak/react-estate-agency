@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import theme from '../../Theme'
 import { Box, TextField, Typography, ThemeProvider} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { createOffer, getOffers, getOffersBySearch } from '../../../actions/offers';
+import { deleteOffer, getOffers, getOffersBySearch } from '../../../actions/offers';
 import { Container } from '@mui/system';
 import Pagination from '../../Pagination'
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -42,6 +42,11 @@ const Offers = () => {
     }
   }
 
+  const handleDelete = (id) => {
+    dispatch(deleteOffer(id));
+    dispatch(getOffers(page));
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Container sx={{ marginTop: 8 }}>
@@ -64,8 +69,7 @@ const Offers = () => {
               <div className='m8 tableRowDetails'><Typography variant="mdm">{Offer.name}</Typography></div>
               <div className='m8 tableRowDetails'><Typography variant="md">{Offer.email}</Typography></div>
               <div className='m8 tableRowDetails' style={{minWidth: '200px'}}><Typography variant="md">{Offer.message}</Typography></div>
-              <div className='m8 tableRowDetails' style={{width: '100px'}}>
-              <EditOutlinedIcon/> <DeleteOutlineOutlinedIcon/>
+              <div className='m8 tableRowDetails' style={{width: '100px'}}><div className="actionButton delete" onClick={() => handleDelete(Offer._id)}><DeleteOutlineOutlinedIcon/></div>
               </div>
             </div>
           ))}
