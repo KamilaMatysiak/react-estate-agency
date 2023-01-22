@@ -56,14 +56,11 @@ const Tenants = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("handleSubmit");
-    console.log(currentID);
+
     if(currentID !== 0) {
-      console.log("edit");
       dispatch(updateTenant(currentID, {...tenantData}));
     } 
     else {
-      console.log('add');
       dispatch(createTenant({...tenantData}));
     } 
 

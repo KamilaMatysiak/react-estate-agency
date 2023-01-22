@@ -10,9 +10,6 @@ export const getEstates = async (req, res) => {
 
         const estates = await Estate.find().sort({ _id: -1 })
 
-        console.log(estates)
-        console.table(estates);
-
         res.status(200).json({ data: estates });
     } catch (error) {
         res.status(404).json({ message: error.message })
@@ -24,7 +21,6 @@ export const getEstate = async (req, res) => {
         const { id } = req.params;
 
         const estate = await Estate.findById(id)
-        console.table(estate);
 
         res.status(200).json({ data: estate });
     } catch (error) {
@@ -33,13 +29,10 @@ export const getEstate = async (req, res) => {
 }
 
 export const createEstates = async (req, res) => {
-    console.log('create estates')
-    console.log(req.body)
     const estate = req.body;
 
     const newEstate = new Estate({ ...estate, estateProperties:{...estate}, estateLocalization:{...estate}});
-    console.log('create estates 4')
-    console.log(newEstate)
+
     try {
         await newEstate.save();
         res.status(200).json(newEstate);

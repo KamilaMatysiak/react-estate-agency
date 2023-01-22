@@ -15,19 +15,13 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('profile'));
-  const {
-    register,
-    formState: { errors },
-    handleSubmit
-  } = useForm();
-  const onError = (errors, e) => console.log('zabij mnie');
+  const { register, formState: { errors }, handleSubmit } = useForm();
+  const onError = (errors, e) => console.log(errors);
   const {error} = useSelector((state) => state.auth);
 
   const onSubmit = (d, e) => {
     e.preventDefault();
-    console.log(d, e);
     dispatch(login(d, navigate));
-    
   }
 
   const handleChange = (e) => {

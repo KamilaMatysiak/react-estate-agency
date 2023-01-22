@@ -42,7 +42,6 @@ export const updateEmployee = (id, employee) => async (dispatch) => {
 
 export const deleteEmployee = (id) => async (dispatch) => {
     try {
-        console.log('im trying ;-;', id)
         await api.deleteEmployee(id);
         dispatch({type: DELETE, payload: id})
     } catch(error) {

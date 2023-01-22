@@ -4,8 +4,11 @@ import theme from './Theme'
 import { useDispatch } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { createOffer } from '../actions/offers';
+import { useForm } from 'react-hook-form';
 const Form = ({estate}) => {
   const dispatch = useDispatch();
+  const { register, formState: { errors }, handleSubmit, reset } = useForm();
+  const onError = (errors, e) => console.log(errors);
   const [offerData, setOfferData] = useState({
     name: '',
     email: '',
@@ -13,21 +16,24 @@ const Form = ({estate}) => {
     estateId: ''
   });  
 
-  const handleSubmit = (e) => {
+  const onSubmit = (d, e) => {
     e.preventDefault();
-    offerData.estateId=estate;
-    dispatch(createOffer({ ...offerData }));
+    d.estateId=estate || 1;
+    console.log(d);
+    console.log(offerData)
+    dispatch(createOffer({ ...d }));
     setOfferData({
       name: '',
       email: '',
       message: '',
       estateId: ''
     })
+    reset();
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+      <form autoComplete="off" noValidate onSubmit={handleSubmit(onSubmit, onError)}>
         <Box sx={{backgroundColor:"text.white", padding: 2, boxShadow: '0 2px 4px rgba(0,0,0,0.25)'}}>
           <TextField 
             variant="outlined" 
@@ -36,8 +42,10 @@ const Form = ({estate}) => {
             required 
             fullWidth
             margin='dense'
-            value={offerData.name}
             onChange={(e) => setOfferData({ ...offerData, name: e.target.value })}
+            {...register("name", { required: true})}
+              helperText={errors.name && "Name is required"}
+              error={errors.name}
             />
           <TextField 
             variant="outlined" 
@@ -46,8 +54,10 @@ const Form = ({estate}) => {
             required 
             fullWidth
             margin='dense'
-            value={offerData.email}
             onChange={(e) => setOfferData({ ...offerData, email: e.target.value })}
+            {...register("email", { required: true})}
+              helperText={errors.email && "Name is required"}
+              error={errors.email}
             />
           <TextField 
             variant="outlined" 
@@ -57,8 +67,10 @@ const Form = ({estate}) => {
             id="outlined-textarea"
             fullWidth
             margin='dense'
-            value={offerData.message}
             onChange={(e) => setOfferData({ ...offerData, message: e.target.value })}
+            {...register("message", { maxLength: 250})}
+              helperText={errors.message && "Your message shouldn't be longer than 250 characters."}
+              error={errors.message}
             />
           <Button fullWidth variant="contained" type="submit">Send Message</Button>
         </Box>
