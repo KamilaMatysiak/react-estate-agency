@@ -8,14 +8,14 @@ import Iconify from '../../../../data/iconify/Iconify';
 // ----------------------------------------------------------------------
 
 const StyledIcon = styled('div')(({ theme }) => ({
-  margin: 'auto',
+  marginLeft: '10px',
   display: 'flex',
   borderRadius: '50%',
   alignItems: 'center',
   width: theme.spacing(8),
   height: theme.spacing(8),
   justifyContent: 'center',
-  marginBottom: theme.spacing(3),
+  marginBottom: theme.spacing(1),
 }));
 
 // ----------------------------------------------------------------------
@@ -32,9 +32,9 @@ export default function SummaryWidget({ title, total, icon, color = 'primary', s
   return (
     <Card
       sx={{
-        py: 5,
+        py: 2,
         boxShadow: 1,
-        textAlign: 'center',
+        textAlign: 'right',
         borderRadius: '8px',
         display:'flex',
         flexDirection:'column',
@@ -45,14 +45,15 @@ export default function SummaryWidget({ title, total, icon, color = 'primary', s
       <StyledIcon
         sx={{
           backgroundColor: color,
+
         }}
       >
         <Iconify icon={icon} width={24} height={24} />
       </StyledIcon>
 
-        <Typography variant="h3">{total}</Typography>
+        <Typography variant="h3" marginRight="15px">{total}</Typography>
 
-        <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
+        <Typography variant="subtitle2" marginRight="15px" sx={{ opacity: 0.72 }}>
           {title}
         </Typography>
     </Card>
