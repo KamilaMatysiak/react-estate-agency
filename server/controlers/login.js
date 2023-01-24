@@ -32,7 +32,7 @@ export const register = async (req, res) => {
         if(exsistingEmployee) return res.status(400).json({message: "User already exsist!"});
         const hash = await bcrypt.hash(password, 12);
         const result = await Employee.create({username, password: hash})
-        const token = jwt.sign({username: result.username, id:result._id}, process.env.JWT_SECRET, {expiresIn: '1h'});
+        const token = jwt.sign({username: result.username, id:result._id}, process.env.JWT_SECRET, {expiresIn: '3h'});
         res.status(200).json({employee: result, token});
     } catch (error) {
         console.log(error);

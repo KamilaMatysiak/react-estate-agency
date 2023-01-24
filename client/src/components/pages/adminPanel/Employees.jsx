@@ -36,7 +36,6 @@ const Employees = () => {
 
   useEffect((page) => {
     dispatch(getEmployees(page));
-    console.log("useEffect");
   }, [dispatch])
 
   const handleClickOpen = () => {
@@ -44,7 +43,6 @@ const Employees = () => {
   };
 
   const handleEditOpen = (e) => {
-    console.log(e._id);
     setCurrentID(e._id);
     setEmployeeData({ ...e});
     setOpen(true);
@@ -61,14 +59,11 @@ const Employees = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("handleSubmit");
-    console.log(currentID);
+
     if(currentID !== 0) {
-      console.log("edit");
       dispatch(updateEmployee(currentID, {...employeeData}));
     } 
     else {
-      console.log('add');
       dispatch(createEmployee({...employeeData}));
     } 
 

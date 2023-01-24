@@ -3,10 +3,9 @@ import EstatesLocalizationSchema from "./EstatesLocalization.js"
 import EstatesPropertiesSchema from "./EstatesProperties.js"
 
 const EstateSchema = new Schema({
-    id: {type: String, required: true},
     name: {type: String, required: true},
     price: {type: Number, min: 1, required: true},
-    type: {type: String, enum: ['House', 'Apartment'], required: true},
+    type: {type: String},// enum: ['House', 'Apartment'], required: true},
     status: {type: String},
     employeeId: {type: Schema.Types.ObjectId, ref: 'Employee'},
     estateLocalization: {type:EstatesLocalizationSchema, default:{}},

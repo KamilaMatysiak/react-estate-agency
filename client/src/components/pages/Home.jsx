@@ -22,6 +22,8 @@ const Home = () => {
   let temp = {
     name: "Luxury house",
     price: 2000000,
+    estateLocalization: [{street: '12', city: 'twoja stara', number: 3}],
+    estateProperties: [{bedrooms: 1, bathrooms: 1, kitchen: 1}]
   }
   
   return (

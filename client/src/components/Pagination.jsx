@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getTenants} from '../actions/tenants';
 import {getEmployees} from '../actions/employees';
 import {getEstates} from '../actions/estates';
+import {getOffers} from '../actions/offers';
 
 const Paginate = ({page, type}) => {
     const dispatch = useDispatch();
@@ -14,11 +15,10 @@ const Paginate = ({page, type}) => {
 
     useEffect(() => {
         if(page) {
-            console.log(page);
             if(type === "tenants") dispatch(getTenants(page));
             if(type === "estates") dispatch(getEstates(page));
             if(type === "employees") dispatch(getEmployees(page));
-            //if(type === "offers") dispatch(getOffers(page));
+            if(type === "offers") dispatch(getOffers(page));
         } 
     }, [page]);
 

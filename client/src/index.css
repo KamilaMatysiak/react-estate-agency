@@ -46,6 +46,10 @@ body {
     flex-wrap: wrap;
 }
 
+.flexStart {
+    align-items: flex-start;
+}
+
 .lh8 {
     margin: 8px 0;
 }

@@ -1,17 +1,19 @@
-import { Box, Grid, Typography, Card } from '@mui/material'
+import { Box, Grid, ButtonBase } from '@mui/material'
 import EstateCard from "../../EstateCard";
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
-import { getEstates } from '../../../actions/estates';
+import { getAllEstates } from '../../../actions/estates';
+import { useNavigate } from 'react-router-dom';
 
 const All = () => {
   const dispatch = useDispatch();
-  const [currentID, setCurrentID] = useState(0);
+  const navigate = useNavigate();
   const {estates} = useSelector((state) => state.estates);
-
   useEffect(() => {
-    dispatch(getEstates());
-  }, [currentID, dispatch])
+    dispatch(getAllEstates());
+  }, [dispatch])
+
+  const openEstate = (id) => navigate(`/estate/${id}`);
   
   return (
     <Box>
@@ -20,12 +22,12 @@ const All = () => {
           direction="row"
           spacing={5}
           alignItems="stretch"
-          maxWidth='80vw'
+          maxWidth='90vw'
           margin={2}
         >
 
         {estates.map((estate) => (
-                <EstateCard key={estate._id} estate={estate}/>
+                <>{!estate.message && <ButtonBase onClick={() => openEstate(estate._id)}><EstateCard key={estate._id} estate={estate}/></ButtonBase>}</>
               ))}
 
       </Grid>

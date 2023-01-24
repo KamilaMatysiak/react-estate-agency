@@ -24,7 +24,6 @@ const Offers = () => {
   const { objects } = useSelector((state) => state.objects);
 
   useEffect(() => {
-    console.log(Number(page));
     dispatch(getOffers(page));
   }, [currentID, dispatch])
 

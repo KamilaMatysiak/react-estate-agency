@@ -3,7 +3,6 @@ import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, DELETE} from '../constants/actionTy
 
 export const getOffers = (page) => async(dispatch) => {
     try {
-        console.log("Initiating: getOffers");
         const {data} = await api.fetchOffers(page);
         dispatch({type: FETCH_ALL, payload: data});    
     } catch(error) {

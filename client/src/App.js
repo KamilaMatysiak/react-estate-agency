@@ -39,7 +39,7 @@ function App() {
             <Route path="/estates/apartmentForRent" element={<ApartmentRent/>}/>
             <Route path="/estates/houseForRent" element={<HomeRent/>}/>
           </Route>
-          <Route path="/estate" element={<Estate />}></Route>
+          <Route path="/estate/:id" element={<Estate />}></Route>
         </Route>
         <Route path='/login' element={user ? <Navigate to='/admin/'/> : <LoginPage/>}/>
         <Route path='/login/register' element={<DebugRegister />}/>
