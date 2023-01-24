@@ -128,7 +128,7 @@ const Home = () => {
           <div className='p32 maxWidthLg'>
             <Typography variant="h2m" color="text.black">What our clients says</Typography>
           </div>
-          <div className='spaceAroundFlex m48 maxWidthLg'>
+          <div className='spaceAroundFlex m48 maxWidthXl'>
               <RatingCard fullname="Lincoln Torff" textMessage="This is my first home purchase. I closed a month and a half ago. Terry was very helpful throughout the whole process. What really impressed me is his knowledge of the process." value={5}/>
               <RatingCard fullname="Lydia Philips" textMessage="Real Estate was simply amazing to work with. They helped my family find our new home in the best neighborhood (within our price range). Their responsiveness made us feel like we were their top priority at all times" value={5}/>
               <RatingCard fullname="Madelyn Westervelt" textMessage="Made home buying a rather pleasant experience instead of a hellish nightmare it usually is. The whole team is pretty easygoing but still professional. And they're really good." value={5}/>
@@ -136,7 +136,7 @@ const Home = () => {
         </Box>
 
         <Box sx={{width: '100%', minHeight:200, backgroundColor:'primary.main', padding:"48px 0"}}>
-          <div className='spaceAroundFlex maxWidthLg'>
+          <div className='spaceAroundFlex maxWidthXl'>
           <Box sx={{width: 400, margin: "0 48px"}}><Form/></Box>
           <div className='columnFlex p8'>
             <Typography variant="sml" color="text.secondaryWhite">GET IN TOUCH</Typography>

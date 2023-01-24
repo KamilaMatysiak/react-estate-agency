@@ -94,7 +94,7 @@ const Employees = () => {
   return (
     <ThemeProvider theme={theme}>
       
-      <Container sx={{marginTop: 8}}>
+      <Container maxWidth="lg" sx={{ marginTop: '32px' }}>
 
       <Dialog open={open} onClose={handleClose} PaperProps={{style: {background: '#fff'}}}>
         <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{backgroundColor: "#fff"}}>
@@ -114,8 +114,8 @@ const Employees = () => {
           </form>
       </Dialog>
 
-      <h1>Employees</h1>
-        <Box sx={{border: '1px solid rgba(0, 0, 0, 0.12)', padding: '36px', marginTop: '20px' }}>
+      <Typography variant="lgm">Employees</Typography>
+        <Box className="tableBox">
           <div style={{ marginBottom: 8, display: 'flex', justifyContent: 'space-between' }}>
             <TextField name="search" varaint="outlined" style={{ width: 'calc(100% - 185px)', margin: 8 }} placeholder='Type to search...' value={search} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={handleKeyDown} />
             <Button variant="contained" style={{ height: '56px', margin: 8 }} onClick={handleClickOpen}>
@@ -134,12 +134,12 @@ const Employees = () => {
 
           {objects.map((employee) => (
             <div key={employee._id} className="tableRow">
-              <CardMedia style={{width: 32, height: 32, margin: 16, borderRadius: 180}} image={employee.avatar}/>
-              <div className='m8 tableRowDetails'><Typography variant="mdm">{employee.name}</Typography></div>
-              <div className='m8 tableRowDetails'><Typography variant="md">{employee.username}</Typography></div>
-              <div className='m8 tableRowDetails'><Typography variant="md">{employee.email}</Typography></div>
-              <div className='m8 tableRowDetails' style={{width: '100px'}}><Typography variant="md">{employee.phoneNumber}</Typography></div>
-              <div className='m8 tableRowDetails' style={{width: '100px', display: 'flex'}}><div className="actionButton" onClick={() => handleEditOpen(employee)}><EditOutlinedIcon/></div> <div className="actionButton delete" onClick={() => handleDelete(employee._id)}><DeleteOutlineOutlinedIcon/></div></div>
+              <CardMedia style={{width: '36px', height: '32px', margin: '0 16px', borderRadius: 360}} image={employee.avatar}/>
+              <div className='m4 tableRowDetails'><Typography variant="mdm">{employee.name}</Typography></div>
+              <div className='m4 tableRowDetails'><Typography variant="md">{employee.username}</Typography></div>
+              <div className='m4 tableRowDetails'><Typography variant="md">{employee.email}</Typography></div>
+              <div className='m4 tableRowDetails' style={{width: '100px'}}><Typography variant="md">{employee.phoneNumber}</Typography></div>
+              <div className='m4 tableRowDetails' style={{width: '100px', display: 'flex'}}><div className="actionButton" onClick={() => handleEditOpen(employee)}><EditOutlinedIcon/></div> <div className="actionButton delete" onClick={() => handleDelete(employee._id)}><DeleteOutlineOutlinedIcon/></div></div>
             </div>
           ))}
           <Box sx={{paddingTop: 4}}>

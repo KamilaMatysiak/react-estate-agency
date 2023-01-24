@@ -35,17 +35,21 @@ const Property = () => {
     <ThemeProvider theme={theme}>
       <Container maxWidth={false} disableGutters sx={{margin:"128px 0"}}>
         <ArrowBackOutlined onClick={() => navigate(-1)}/>
-        <Box sx={{backgroundColor: "primary.main", color: 'text.white', width: '100%', height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'space-around', flexWrap: 'wrap', marginBottom: '100px'}}>
-          <div style={{position: 'relative', width: '600px', height: '100%'}}>
+        <Box sx={{backgroundColor: "primary.main", color: 'text.white', width: '100%', height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '100px'}}>
+          <div style={{position: 'relative', width: '700px', height: '100%', marginRight: '5%'}}>
             <div className="columnFlex spaceBetweenFlex" style={{position: 'absolute', top: '-10%' , width: '100%'}}>
             {estate.data.estateProperties.gallery && <CardMedia style={{width: 650, height: 350}} image={estate.data.estateProperties.gallery}/>}
             </div>
-            </div>
-          <div className='columnFlex'>
+          </div>
+          <div className='columnFlex' style={{height: '50%', justifyContent: 'space-around', marginLeft: '32px'}}>
+            <div className='columnFlex'>
             <Typography variant="h2">{estate.data.name}</Typography>
             <div><LocationOnOutlined/><Typography variant="sml">{estate.data.estateLocalization.street} {estate.data.estateLocalization.number}, {estate.data.estateLocalization.city}</Typography></div>
+            </div>
+            <div className='columnFlex' style={{textAlign: 'right'}}>
             <Typography variant="h2b">${estate.data.price}</Typography>
             <Typography variant="sml">{estate.data.price/100} / m2</Typography>
+            </div>
           </div>
         </Box>
         <div className='spaceBetweenFlex maxWidthXl flexWrap'>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import theme from '../../Theme'
-import { CardMedia, OutlinedInput, InputAdornment, InputLabel, FormControl, Typography, Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider, Grid, Divider, Autocomplete, DialogContentText, Paper, Chip } from '@mui/material';
+import { CardMedia, OutlinedInput, InputAdornment, InputLabel, FormControl, Typography, Button, ButtonBase, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider, Grid, Divider, Autocomplete, DialogContentText, Paper, Chip } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEstate, getEstates, deleteEstate, updateEstate, getEstatesBySearch } from '../../../actions/estates';
 import { getAllEmployees } from '../../../actions/employees';
@@ -175,7 +175,7 @@ const AdminEstates = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container sx={{ marginTop: 8 }}>
+      <Container  maxWidth="lg" sx={{ marginTop: '32px' }}>
         <Dialog open={open} onClose={clear} maxWidth="md" PaperProps={{ style: { background: '#fff' } }}>
           <form autoComplete="off" noValidate onSubmit={handleSubmit}>
             <DialogTitle>{currentID !== 0 ? 'Edit' : 'Add'} Estate</DialogTitle>
@@ -304,8 +304,8 @@ const AdminEstates = () => {
         </Dialog>
 
 
-        <h1>Estates</h1>
-        <Box sx={{border: '1px solid rgba(0, 0, 0, 0.12)', padding: '36px', marginTop: '20px' }}>
+        <Typography variant="lgm">Estates</Typography>
+        <Box className="tableBox">
           <div style={{ marginBottom: 8, display: 'flex', justifyContent: 'space-between' }}>
             <TextField name="search" varaint="outlined" style={{ width: 'calc(100% - 170px)', margin: 8 }} placeholder='Type to search...' value={search} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={handleKeyDown} />
             <Button variant="contained" style={{ height: '56px', margin: 8 }} onClick={handleClickOpen}>
@@ -315,7 +315,7 @@ const AdminEstates = () => {
           <div className="tableRow" style={{ background: '#F8F8F8', marginTop: 8 }}>
             <div className='m8 tableRowDetails' style={{maxWidth: '125px'}}><Typography variant="mdm">Employee ID</Typography></div>
             <div className='m8 tableRowDetails'><Typography variant="mdm">Name</Typography></div>
-            <div className='m8 tableRowDetails'><Typography variant="mdm">Price</Typography></div>
+            <div className='m8 tableRowDetails' style={{ width: '150px' }}><Typography variant="mdm">Price</Typography></div>
             <div className='m8 tableRowDetails' style={{ width: '250px' }}><Typography variant="mdm">Properties</Typography></div>
             <div className='m8 tableRowDetails' style={{ width: '100px' }}><Typography variant="mdm">Status</Typography></div>
             <div className='m8 tableRowDetails' style={{ maxWidth: '100px' }}><Typography variant="mdm">Actions</Typography></div>
@@ -323,9 +323,9 @@ const AdminEstates = () => {
           {estates.map((estate) => (
             <div key={estate._id} className="tableRow">
               <div className='m8 tableRowDetails' style={{maxWidth: '125px', overflow: 'hidden'}}><Typography variant="md">{estate.employeeId}</Typography></div>
-              <div className='m8 tableRowDetails'><Typography variant="md">{estate.name}</Typography></div>
-              <div className='m8 tableRowDetails'><Typography variant="md">$ {estate.price}</Typography></div>
-              <div className='m8 tableRowDetails' style={{ width: '250px' }}><Button onClick={() => handleOpenDetails(estate)}><Typography variant="mdm" color="secondary.dark">See properties</Typography></Button></div>
+              <div className='m8 tableRowDetails'><Typography variant="mdm">{estate.name}</Typography></div>
+              <div className='m8 tableRowDetails' style={{ width: '150px' }}><Typography variant="md">$ {estate.price}</Typography></div>
+              <div className='m8 tableRowDetails' style={{ width: '250px' }}><ButtonBase onClick={() => handleOpenDetails(estate)}><Typography variant="mdm" color="secondary.dark">See properties</Typography></ButtonBase></div>
               <div className='m8 tableRowDetails' style={{ width: '100px' }}><Typography variant="md">{estate.status}</Typography></div>
               <div className='m8 tableRowDetails' style={{ maxWidth: '100px', display: 'flex'}}>
                 <div className="actionButton" onClick={() => handleEditOpen(estate)}><EditOutlinedIcon/></div> 
