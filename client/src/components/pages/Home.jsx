@@ -1,11 +1,14 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
-import { Container, Button, Divider, Typography, Box } from '@mui/material'
+import { Container, Button, ButtonBase, Divider, Typography, Box } from '@mui/material'
 import theme from '../Theme'
 import { ThemeProvider } from '@mui/material/styles';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getAllEstates } from '../../actions/estates';
 
 import Form from '../Form'
 import SearchForm from '../SearchForm';
@@ -19,6 +22,17 @@ import EstateCard from '../EstateCard';
 
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {estates} = useSelector((state) => state.estates);
+  const featured = [...estates].reverse();
+  useEffect(() => {
+    dispatch(getAllEstates());
+  }, [dispatch])
+
+  
+  const openEstate = (id) => navigate(`/estate/${id}`);
+
   let temp = {
     name: "Luxury house",
     price: 2000000,
@@ -95,15 +109,15 @@ const Home = () => {
         
         <Box sx={{width: '100%', minHeight: 200, backgroundColor:'none', padding: '32px 0'}}>
         <div className='p48 maxWidthLg'>
-          <Typography variant="h2m" color="text.black">Feaetured Properties</Typography>
+          <Typography variant="h2m" color="text.black">Featured Properties</Typography>
         </div>
           <div className='spaceAroundFlex m48 maxWidthLg'>
-            <EstateCard estate={temp}/>
-            <EstateCard estate={temp}/>
-            <EstateCard estate={temp}/>   
+              {featured.slice(0, 3).map((estate) => (
+                <>{!estate.message && <ButtonBase onClick={() => openEstate(estate._id)}><EstateCard key={estate._id} estate={estate}/></ButtonBase>}</>
+              ))}  
           </div>
           <div className='p48 centerFlex'>
-          <Button variant="outlined" >View More</Button>
+          <Button variant="outlined" onClick={() => navigate('/estates')} >View More</Button>
           </div>
           
         </Box>

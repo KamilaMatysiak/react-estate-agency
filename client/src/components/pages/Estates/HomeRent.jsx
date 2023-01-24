@@ -23,7 +23,7 @@ const HomeRent = () => {
         direction="row"
         spacing={5}
         alignItems="stretch"
-        maxWidth='90vw'
+        maxWidth='85vw'
         margin={2}
       >
 
