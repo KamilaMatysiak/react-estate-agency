@@ -69,12 +69,13 @@ export const createEmployee = async (req, res) => {
 export const updateEmployee = async (req, res) => {
     const {id} = req.params;
     const employee = req.body;
+    const hash = await bcrypt.hash(employee.password, 12);
 
     if(!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({message: "No employee to update"});
     }
 
-    const updatedEmployee = await Employee.findByIdAndUpdate(id, {...employee, id}, {new: true});
+    const updatedEmployee = await Employee.findByIdAndUpdate(id, {...employee, id, password: hash}, {new: true});
     res.json(updatedEmployee);
 }
 

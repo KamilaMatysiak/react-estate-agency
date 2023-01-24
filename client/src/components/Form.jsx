@@ -19,7 +19,8 @@ const Form = ({estate}) => {
   const onSubmit = (d, e) => {
     e.preventDefault();
 
-    d.estateId=estate || 1;
+    if(estate) d.estateId=estate;
+    else d.estateId = null;
     dispatch(createOffer({...d}));
     reset();
   }

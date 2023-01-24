@@ -44,7 +44,12 @@ export const getOffer = async (req, res) => {
 
 export const createOffer = async (req, res) => {
     const offer = req.body;
-    var objectId = mongoose.Types.ObjectId(offer.estateId)
+    const objectId = null;
+
+    if (offer.estateId) {
+        objectId = mongoose.Types.ObjectId(offer.estateId)
+    }
+    
     const newOffer = new Offer({...offer, estateId: objectId});
     try {
         await newOffer.save();

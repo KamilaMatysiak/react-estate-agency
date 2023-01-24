@@ -8,7 +8,8 @@ const EmployeeSchema = new Schema({
     password: {type: String, required: true},
     phoneNumber: {type: String},
     role: {type: String},
-    avatar: {type: String}
+    avatar: {type: String},
+    isAdmin: {type: Boolean}
 });
 
 const Employee = mongoose.model('Employee', EmployeeSchema);

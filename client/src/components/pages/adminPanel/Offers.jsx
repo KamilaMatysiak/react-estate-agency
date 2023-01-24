@@ -46,6 +46,10 @@ const Offers = () => {
     dispatch(getOffers(page));
   }
 
+  const openEstate = (id) => {
+    if(id) navigate(`/estate/${id}`);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Container  maxWidth="lg" sx={{ marginTop: '32px' }}>
@@ -64,7 +68,7 @@ const Offers = () => {
         
           {objects.map((Offer) => (
             <div key={Offer._id} className="tableRow">
-              <div className='m4 tableRowDetails' style={{maxWidth: '100px', overflow: 'hidden'}}><Typography variant="md">{Offer.estateId}</Typography></div>
+              <div className='m4 tableRowDetails' style={{maxWidth: '100px', overflow: 'hidden', cursor: 'pointer'}}>{Offer.estateId && <div onClick={() => openEstate(Offer.estateId)}><Typography variant="md">{Offer.estateId}</Typography></div>}</div>
               <div className='m4 tableRowDetails'><Typography variant="mdm">{Offer.name}</Typography></div>
               <div className='m4 tableRowDetails'><Typography variant="md">{Offer.email}</Typography></div>
               <div className='m4 tableRowDetails' style={{minWidth: '200px'}}><Typography variant="md">{Offer.message}</Typography></div>
