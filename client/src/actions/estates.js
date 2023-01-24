@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { FETCH_ESTATES, FETCH_ALL_ESTATES, CREATE, UPDATE, DELETE, FETCH_ESTATE, FETCH_ESTATES_BY_SEARCH } from '../constants/actionTypes';
+import { FETCH_ESTATES, FETCH_ALL_ESTATES, CREATE, UPDATE, DELETE, FETCH_ESTATE, FETCH_ESTATES_BY_SEARCH, FETCH_FILTERED_ESTATES } from '../constants/actionTypes';
 
 export const getEstates = (page) => async(dispatch) => {
     try {
@@ -23,6 +23,26 @@ export const getEstate = (id) => async (dispatch) => {
     try {        
         const {data} = await api.fetchEstate(id);
         dispatch({type: FETCH_ESTATE, payload: data});
+
+    } catch(error) {
+        console.log(error);
+    }
+    
+} 
+
+export const getFilteredEstates = (searchQuery, navigate) => async (dispatch) => {
+    try {
+        if (searchQuery.type) {
+            {searchQuery.type.type === "Rent" ? searchQuery.status = "For Rent" : searchQuery.status = "For Sale"}
+            searchQuery.type = searchQuery.type.label
+        } else {
+            searchQuery.status = 'none'
+            searchQuery.type = 'none'
+        }
+
+        const {data} = await api.fetchFilteredEstates(searchQuery);
+        navigate(`/estates/search?localization=${searchQuery.localization || 'none'}&type=${searchQuery.type || 'none'}&status=${searchQuery.status || 'none' }&budget=${searchQuery.budget || 'none'}`, {state: {data: data, query: searchQuery}})
+        dispatch({type: FETCH_FILTERED_ESTATES, payload: data});
 
     } catch(error) {
         console.log(error);

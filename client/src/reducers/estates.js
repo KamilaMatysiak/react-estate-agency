@@ -1,4 +1,4 @@
-import { FETCH_ESTATES, FETCH_ALL_ESTATES, FETCH_ESTATE, FETCH_ESTATES_BY_SEARCH, CREATE, UPDATE, DELETE } from "../constants/actionTypes";
+import { FETCH_ESTATES, FETCH_ALL_ESTATES, FETCH_ESTATE, FETCH_ESTATES_BY_SEARCH, CREATE, UPDATE, DELETE, FETCH_FILTERED_ESTATES } from "../constants/actionTypes";
 
 export default (state={estates: []}, action) => {
     switch(action.type){
@@ -8,6 +8,8 @@ export default (state={estates: []}, action) => {
             return{...state, estates: action.payload.data};
         case FETCH_ESTATE:
             return{...state, estate: action.payload};
+        case FETCH_FILTERED_ESTATES:
+            return{...state, filteredEstates: action.payload};
         case FETCH_ESTATES_BY_SEARCH:
             return{...state, estates: action.payload};
         case CREATE:

@@ -4,7 +4,6 @@ import { AUTH, AUTH_FAIL } from '../constants/actionTypes';
 export const login = (formData, navigate) => async(dispatch) => {
     try {
         const {data} = await api.login(formData);
-        console.log(data);
         dispatch({type: AUTH, data});
         window.location.reload(false);
         //navigate('/admin');

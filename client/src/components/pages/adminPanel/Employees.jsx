@@ -16,7 +16,6 @@ function useQuery() {
 
 const Employees = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
-  console.log(user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const query = useQuery();

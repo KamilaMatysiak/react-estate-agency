@@ -1,5 +1,5 @@
 import express from 'express';
-import { getEstates, getEstate, createEstates, updateEstate, deleteEstate, getEstatesBySearch, getAllEstates } from '../controlers/estates.js';
+import { getEstates, getEstate, createEstates, updateEstate, deleteEstate, getEstatesBySearch, getAllEstates, getFilteredEstates } from '../controlers/estates.js';
 import auth from "../middleware/auth.js";
 
 const router = express.Router();
@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/', getEstates);
 router.get('/all', getAllEstates);
 router.get('/search', getEstatesBySearch);
+router.get('/filter', getFilteredEstates);
 router.get('/:id', getEstate);
 router.post('/', auth, createEstates);
 router.patch('/:id', auth, updateEstate);

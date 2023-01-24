@@ -29,6 +29,36 @@ export const getAllEstates = async (req, res) => {
     }
 }
 
+export const getFilteredEstates = async (req, res) => {
+    const {localization, type, status, budget} = req.query;
+    try {
+        const loc = new RegExp(localization, 'i');
+        const options = {}
+
+
+        if (budget != 'none')
+            options["price"] = {$lte: budget}
+
+        if (type && type != 'none')
+            options["type"] = type
+        
+        if (status && status != 'none')
+            options["status"] = status
+
+        var estates = await Estate.find(options).exec();
+ 
+
+        if (localization != 'none') {
+            estates = estates.filter(estate => loc.test(estate.estateLocalization.city))
+        }
+
+        res.json({data: estates});
+    } catch (error) {
+        console.log(error)
+        res.status(404).json({message: error.message})
+    }
+}
+
 
 export const getEstatesBySearch = async (req, res) => {
     const {searchQuery} = req.query;

@@ -1,3 +1,4 @@
+import { speedDialActionClasses } from '@mui/material';
 import axios from 'axios';
 
 const API = axios.create({baseURL: 'http://localhost:5000'});
@@ -14,6 +15,7 @@ export const register = (formData) => API.post('/login/register', formData);
 
 export const fetchEstates = (page) => API.get(`admin/estates?page=${page}`);
 export const fetchAllEstates = () => API.get(`admin/estates/all`);
+export const fetchFilteredEstates = (searchQuery) => API.get(`admin/estates/filter?localization=${searchQuery.localization || 'none'}&type=${searchQuery.type || 'none'}&status=${searchQuery.status || 'none' }&budget=${searchQuery.budget || 'none'}`);
 export const fetchEstatesBySearch = (searchQuery) => API.get(`/admin/estates/search?searchQuery=${searchQuery.search || 'none'}`);
 export const fetchEstate = (id) => API.get(`admin/estates/${id}`);
 export const createEstate = (newEstate) => API.post('/admin/estates/', newEstate);

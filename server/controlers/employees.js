@@ -54,7 +54,6 @@ export const getEmployee = async (req, res) => {
 }
 
 export const createEmployee = async (req, res) => {
-    console.log('create employee')
     const employee = req.body;
     const hash = await bcrypt.hash(employee.password, 12);
     const newEmployee = new Employee({...employee, password: hash});

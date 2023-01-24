@@ -62,10 +62,8 @@ const AdminEstates = () => {
 
   const [currentID, setCurrentID] = useState(0);
   const { estates } = useSelector((state) => state.estates);
-  const poka = useSelector((state) => console.log(state));
   const employees = useSelector((state) => state.objects.objects);
-  console.log(employees);
-
+  
   useEffect(() => {
     dispatch(getEstates(page));
     dispatch(getAllEmployees());
