@@ -32,7 +32,7 @@ const Tenants = () => {
 
   useEffect(() => {
     dispatch(getTenants(page));
-  }, [currentID, dispatch])
+  }, [dispatch])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -64,7 +64,6 @@ const Tenants = () => {
     } 
 
     clear();
-
     dispatch(getTenants(page));
   }
 

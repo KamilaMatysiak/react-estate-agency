@@ -20,12 +20,11 @@ const Offers = () => {
   const page = query.get('page') || 1;
   const searchQuery = query.get('searchQuery');
   const [search, setSearch] = useState('');
-  const [currentID, setCurrentID] = useState(0);
   const { objects } = useSelector((state) => state.objects);
 
   useEffect(() => {
     dispatch(getOffers(page));
-  }, [currentID, dispatch])
+  }, [dispatch])
 
   const handleKeyDown = (e) => {
     if(e.keyCode === 13) {

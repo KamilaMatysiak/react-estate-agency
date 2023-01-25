@@ -4,7 +4,9 @@
     "@mui/styles": "^5.11.2",
     "create-react-app": "^5.0.1",
     "date-fns": "^2.29.3",
-    "npx": "^10.2.2"
+    "npx": "^10.2.2",
+    "numeral": "^2.0.6",
+    "react-apexcharts": "^1.4.0"
   },
   "devDependencies": {
     "@iconify/react": "^4.0.1"

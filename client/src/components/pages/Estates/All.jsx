@@ -27,7 +27,7 @@ const All = () => {
         >
 
         {estates.map((estate) => (
-                <>{!estate.message && <ButtonBase onClick={() => openEstate(estate._id)}><EstateCard key={estate._id} estate={estate}/></ButtonBase>}</>
+                <>{!estate.message && (estate.status != "Sold" && estate.status != "Rented") && <ButtonBase onClick={() => openEstate(estate._id)}><EstateCard key={estate._id} estate={estate}/></ButtonBase>}</>
               ))}
 
       </Grid>

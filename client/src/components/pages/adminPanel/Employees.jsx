@@ -70,7 +70,6 @@ const Employees = () => {
     } 
 
     clear();
-
     dispatch(getEmployees(page));
   }
 
@@ -139,12 +138,13 @@ const Employees = () => {
 
           {objects.map((employee) => (
             <div key={employee._id} className="tableRow">
-              <CardMedia style={{width: '36px', height: '32px', margin: '0 16px', borderRadius: 360}} image={employee.avatar}/>
-              <div className='m4 tableRowDetails'><Typography variant="mdm">{employee.isAdmin && <p>admin-</p>}{employee.name}</Typography></div>
-              <div className='m4 tableRowDetails'><Typography variant="md">{employee.username}</Typography></div>
+              <CardMedia style={{width: '36px', height: '32px', margin: '16px', borderRadius: 360}} image={employee.avatar}/>
+              <div className='m4 tableRowDetails'><Typography variant="mdm">{employee.name}</Typography></div>
+              <div className='m4 tableRowDetails'><Typography variant="md">{employee.isAdmin ? <b>{employee.username}</b>: employee.username}</Typography></div>
               <div className='m4 tableRowDetails'><Typography variant="md">{employee.email}</Typography></div>
               <div className='m4 tableRowDetails' style={{width: '100px'}}><Typography variant="md">{employee.phoneNumber}</Typography></div>
-              <div className='m4 tableRowDetails' style={{width: '100px', display: 'flex'}}><div className="actionButton" onClick={() => handleEditOpen(employee)}><EditOutlinedIcon/></div> 
+              <div className='m4 tableRowDetails' style={{width: '100px', display: 'flex'}}>
+              {(user.employee.username === employee.username || user.isAdmin) && <div className="actionButton" onClick={() => handleEditOpen(employee)}><EditOutlinedIcon/></div> }
               {user.isAdmin && <div className="actionButton delete" onClick={() => handleDelete(employee._id)}><DeleteOutlineOutlinedIcon/></div>}</div>
             </div>
           ))}
