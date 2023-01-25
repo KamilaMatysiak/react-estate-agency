@@ -20,6 +20,15 @@ export const getEmployees = async (req, res) => {
     }
 }
 
+export const getAllEmployees = async (req, res) => {
+    try {
+        const employees = await Employee.find().sort({_id: -1});
+        res.status(200).json({ data: employees});
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
+}
+
 export const getEmployeesBySearch = async (req, res) => {
     const {searchQuery} = req.query;
     
@@ -38,8 +47,6 @@ export const getEmployee = async (req, res) => {
         const {id} = req.params;
 
         const employee = await Employee.findById(id);
-        console.table(employee);
-
         res.status(200).json({data: employee});
     } catch (error) {
         res.status(404).json({message: error.message})
@@ -47,7 +54,6 @@ export const getEmployee = async (req, res) => {
 }
 
 export const createEmployee = async (req, res) => {
-    console.log('create employee')
     const employee = req.body;
     const hash = await bcrypt.hash(employee.password, 12);
     const newEmployee = new Employee({...employee, password: hash});
@@ -60,15 +66,15 @@ export const createEmployee = async (req, res) => {
 }
 
 export const updateEmployee = async (req, res) => {
-    console.log("nie umiem pisac, update");
     const {id} = req.params;
     const employee = req.body;
+    const hash = await bcrypt.hash(employee.password, 12);
 
     if(!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({message: "No employee to update"});
     }
 
-    const updatedEmployee = await Employee.findByIdAndUpdate(id, {...employee, id}, {new: true});
+    const updatedEmployee = await Employee.findByIdAndUpdate(id, {...employee, id, password: hash}, {new: true});
     res.json(updatedEmployee);
 }
 

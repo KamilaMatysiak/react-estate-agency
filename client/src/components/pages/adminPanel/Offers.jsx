@@ -24,7 +24,6 @@ const Offers = () => {
   const { objects } = useSelector((state) => state.objects);
 
   useEffect(() => {
-    console.log(Number(page));
     dispatch(getOffers(page));
   }, [currentID, dispatch])
 
@@ -47,16 +46,20 @@ const Offers = () => {
     dispatch(getOffers(page));
   }
 
+  const openEstate = (id) => {
+    if(id) navigate(`/estate/${id}`);
+  }
+
   return (
     <ThemeProvider theme={theme}>
-      <Container sx={{ marginTop: 8 }}>
-        <h1>Offers</h1>
-        <Box sx={{border: '1px solid rgba(0, 0, 0, 0.12)', padding: '36px', marginTop: '20px' }}>
+      <Container  maxWidth="lg" sx={{ marginTop: '32px' }}>
+        <Typography variant="lgm">Offers</Typography>
+        <Box className="tableBox">
           <div style={{ marginBottom: 8, display: 'flex', justifyContent: 'space-between' }}>
             <TextField name="search" varaint="outlined" style={{ width: '100%', margin: 8 }} placeholder='Type to search...' value={search} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={handleKeyDown} />
           </div>
           <div className="tableRow" style={{background: '#F8F8F8', marginTop: 8}}>
-           <div className='m8 tableRowDetails' style={{maxWidth: '100px'}}><Typography variant="mdm">Estate Id</Typography></div>
+            <div className='m8 tableRowDetails' style={{maxWidth: '100px'}}><Typography variant="mdm">Estate Id</Typography></div>
             <div className='m8 tableRowDetails'><Typography variant="mdm">Name</Typography></div>
             <div className='m8 tableRowDetails'><Typography variant="mdm">Email</Typography></div>
             <div className='m8 tableRowDetails' style={{minWidth: '200px'}}><Typography variant="mdm">Message</Typography></div>
@@ -65,11 +68,11 @@ const Offers = () => {
         
           {objects.map((Offer) => (
             <div key={Offer._id} className="tableRow">
-              <div className='m8 tableRowDetails' style={{maxWidth: '100px', overflow: 'hidden'}}><Typography variant="md">{Offer.estateId}</Typography></div>
-              <div className='m8 tableRowDetails'><Typography variant="mdm">{Offer.name}</Typography></div>
-              <div className='m8 tableRowDetails'><Typography variant="md">{Offer.email}</Typography></div>
-              <div className='m8 tableRowDetails' style={{minWidth: '200px'}}><Typography variant="md">{Offer.message}</Typography></div>
-              <div className='m8 tableRowDetails' style={{width: '100px'}}><div className="actionButton delete" onClick={() => handleDelete(Offer._id)}><DeleteOutlineOutlinedIcon/></div>
+              <div className='m4 tableRowDetails' style={{maxWidth: '100px', overflow: 'hidden', cursor: 'pointer'}}>{Offer.estateId && <div onClick={() => openEstate(Offer.estateId)}><Typography variant="md">{Offer.estateId}</Typography></div>}</div>
+              <div className='m4 tableRowDetails'><Typography variant="mdm">{Offer.name}</Typography></div>
+              <div className='m4 tableRowDetails'><Typography variant="md">{Offer.email}</Typography></div>
+              <div className='m4 tableRowDetails' style={{minWidth: '200px'}}><Typography variant="md">{Offer.message}</Typography></div>
+              <div className='m4 tableRowDetails' style={{width: '100px'}}><div className="actionButton delete" onClick={() => handleDelete(Offer._id)}><DeleteOutlineOutlinedIcon/></div>
               </div>
             </div>
           ))}

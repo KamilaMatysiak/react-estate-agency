@@ -31,7 +31,7 @@ export const getTenantsBySearch = async (req, res) => {
 }
 
 export const createTenant = async (req, res) => {
-    console.log('create tenant')
+    ('create tenant')
     const tenant = req.body;
     const newTenant = new Tenant({...tenant});
     try {

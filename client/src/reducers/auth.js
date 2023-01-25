@@ -1,7 +1,6 @@
 import {AUTH, AUTH_FAIL, LOGOUT} from '../constants/actionTypes';
 
 const authReducer = (state = {authData: null, error: null}, action) => {
-    console.log("state to ",state, action)
     switch(action.type) {
         case AUTH:
             localStorage.setItem('profile', JSON.stringify({...action?.data}));

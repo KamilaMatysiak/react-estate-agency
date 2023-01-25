@@ -1,11 +1,14 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
-import { Container, Button, Divider, Typography, Box } from '@mui/material'
+import { Container, Button, ButtonBase, Divider, Typography, Box } from '@mui/material'
 import theme from '../Theme'
 import { ThemeProvider } from '@mui/material/styles';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getAllEstates } from '../../actions/estates';
 
 import Form from '../Form'
 import SearchForm from '../SearchForm';
@@ -19,9 +22,22 @@ import EstateCard from '../EstateCard';
 
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {estates} = useSelector((state) => state.estates);
+  const featured = [...estates].reverse();
+  useEffect(() => {
+    dispatch(getAllEstates());
+  }, [dispatch])
+
+  
+  const openEstate = (id) => navigate(`/estate/${id}`);
+
   let temp = {
     name: "Luxury house",
     price: 2000000,
+    estateLocalization: [{street: '12', city: 'twoja stara', number: 3}],
+    estateProperties: [{bedrooms: 1, bathrooms: 1, kitchen: 1}]
   }
   
   return (
@@ -93,15 +109,15 @@ const Home = () => {
         
         <Box sx={{width: '100%', minHeight: 200, backgroundColor:'none', padding: '32px 0'}}>
         <div className='p48 maxWidthLg'>
-          <Typography variant="h2m" color="text.black">Feaetured Properties</Typography>
+          <Typography variant="h2m" color="text.black">Featured Properties</Typography>
         </div>
           <div className='spaceAroundFlex m48 maxWidthLg'>
-            <EstateCard estate={temp}/>
-            <EstateCard estate={temp}/>
-            <EstateCard estate={temp}/>   
+              {featured.slice(0, 3).map((estate) => (
+                <>{!estate.message && <ButtonBase onClick={() => openEstate(estate._id)}><EstateCard key={estate._id} estate={estate}/></ButtonBase>}</>
+              ))}  
           </div>
           <div className='p48 centerFlex'>
-          <Button variant="outlined" >View More</Button>
+          <Button variant="outlined" onClick={() => navigate('/estates')} >View More</Button>
           </div>
           
         </Box>
@@ -112,7 +128,7 @@ const Home = () => {
           <div className='p32 maxWidthLg'>
             <Typography variant="h2m" color="text.black">What our clients says</Typography>
           </div>
-          <div className='spaceAroundFlex m48 maxWidthLg'>
+          <div className='spaceAroundFlex m48 maxWidthXl'>
               <RatingCard fullname="Lincoln Torff" textMessage="This is my first home purchase. I closed a month and a half ago. Terry was very helpful throughout the whole process. What really impressed me is his knowledge of the process." value={5}/>
               <RatingCard fullname="Lydia Philips" textMessage="Real Estate was simply amazing to work with. They helped my family find our new home in the best neighborhood (within our price range). Their responsiveness made us feel like we were their top priority at all times" value={5}/>
               <RatingCard fullname="Madelyn Westervelt" textMessage="Made home buying a rather pleasant experience instead of a hellish nightmare it usually is. The whole team is pretty easygoing but still professional. And they're really good." value={5}/>
@@ -120,7 +136,7 @@ const Home = () => {
         </Box>
 
         <Box sx={{width: '100%', minHeight:200, backgroundColor:'primary.main', padding:"48px 0"}}>
-          <div className='spaceAroundFlex maxWidthLg'>
+          <div className='spaceAroundFlex maxWidthXl'>
           <Box sx={{width: 400, margin: "0 48px"}}><Form/></Box>
           <div className='columnFlex p8'>
             <Typography variant="sml" color="text.secondaryWhite">GET IN TOUCH</Typography>

@@ -1,11 +1,31 @@
 import * as api from '../api';
-import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, DELETE, UPDATE } from '../constants/actionTypes';
+import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, DELETE, UPDATE, FETCH_OBJECT, FETCH_ALL_OBJECTS } from '../constants/actionTypes';
 
 export const getEmployees = (page) => async(dispatch) => {
     try {
-        console.log("Initiating: getEmployees");
         const {data} = await api.fetchEmployees(page);
         dispatch({type: FETCH_ALL, payload: data});    
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+
+export const getEmployee = (id) => async (dispatch) => {
+    try {        
+        const {data} = await api.fetchEmployee(id);
+        dispatch({type: FETCH_OBJECT, payload: data});
+
+    } catch(error) {
+        console.log(error);
+    }
+    
+} 
+
+export const getAllEmployees = () => async(dispatch) => {
+    try {
+        const {data} = await api.fetchAllEmployees();
+        dispatch({type: FETCH_ALL_OBJECTS, payload: data});    
     } catch(error) {
         console.log(error);
     }

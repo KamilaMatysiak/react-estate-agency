@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import theme from '../../Theme'
-import {Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, CardMedia, ThemeProvider, Typography} from '@mui/material';
+import {Button, Box, TextField, Dialog, DialogActions, DialogContent, DialogTitle, CardMedia, ThemeProvider, Typography, Checkbox, FormControlLabel} from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
 import { createEmployee, getEmployees, getEmployeesBySearch, deleteEmployee, updateEmployee } from '../../../actions/employees';
 import FileBase from 'react-file-base64';
@@ -15,6 +15,7 @@ function useQuery() {
 }
 
 const Employees = () => {
+  const user = JSON.parse(localStorage.getItem('profile'));
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const query = useQuery();
@@ -29,14 +30,14 @@ const Employees = () => {
     name: '',
     email: '',
     phoneNumber: '',
-    password: ''
+    password: '',
+    isAdmin: false,
   });
 
   const {objects} = useSelector((state) => state.objects);
 
   useEffect((page) => {
     dispatch(getEmployees(page));
-    console.log("useEffect");
   }, [dispatch])
 
   const handleClickOpen = () => {
@@ -44,7 +45,6 @@ const Employees = () => {
   };
 
   const handleEditOpen = (e) => {
-    console.log(e._id);
     setCurrentID(e._id);
     setEmployeeData({ ...e});
     setOpen(true);
@@ -61,14 +61,11 @@ const Employees = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("handleSubmit");
-    console.log(currentID);
+
     if(currentID !== 0) {
-      console.log("edit");
       dispatch(updateEmployee(currentID, {...employeeData}));
     } 
     else {
-      console.log('add');
       dispatch(createEmployee({...employeeData}));
     } 
 
@@ -78,7 +75,7 @@ const Employees = () => {
   }
 
   const clear = () => {
-    setEmployeeData({ avatar: '', username: '', name: '', email: '', phoneNumber: '', password: ''});
+    setEmployeeData({ avatar: '', username: '', name: '', email: '', phoneNumber: '', password: '', isAdmin: false});
     setCurrentID(0);
   }
 
@@ -99,18 +96,21 @@ const Employees = () => {
   return (
     <ThemeProvider theme={theme}>
       
-      <Container sx={{marginTop: 8}}>
+      <Container maxWidth="lg" sx={{ marginTop: '32px' }}>
 
       <Dialog open={open} onClose={handleClose} PaperProps={{style: {background: '#fff'}}}>
         <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{backgroundColor: "#fff"}}>
           <DialogTitle>{currentID !== 0 ? 'Edit' : 'Add'} Employee</DialogTitle>
           <DialogContent>
+            {user.isAdmin && <div><FormControlLabel control={
+              <Checkbox variant="outlined" autoFocus margin="dense" id="isAdmin" checked={employeeData.isAdmin} onChange={(e)=> setEmployeeData({...employeeData, isAdmin: e.target.checked})}/>
+            } label="Admin" /></div>}
             <FileBase type="file" multiple={false} onDone={({base64}) => setEmployeeData({...employeeData, avatar: base64})}/>
             <TextField variant="outlined" autoFocus margin="dense" id="username" label="Username" type="text" fullWidth value={employeeData.username} onChange={(e)=> setEmployeeData({...employeeData, username: e.target.value})}/>
             <TextField variant="outlined" autoFocus margin="dense" id="name" label="Name" type="text" fullWidth value={employeeData.name} onChange={(e)=> setEmployeeData({...employeeData, name: e.target.value})}/>
             <TextField variant="outlined" autoFocus margin="dense" id="email" label="Email Address" type="email" fullWidth value={employeeData.email} onChange={(e)=> setEmployeeData({...employeeData, email: e.target.value})}/>
             <TextField variant="outlined" autoFocus margin="dense" id="phoneNumber" label="Phone Number" type="text" fullWidth value={employeeData.phoneNumber} onChange={(e)=> setEmployeeData({...employeeData, phoneNumber: e.target.value})}/>
-            {currentID == 0 ? <TextField variant="outlined" autoFocus margin="dense" id="password" label="Password" type="pasword" fullWidth onChange={(e)=> setEmployeeData({...employeeData, password: e.target.value})}/> : <></>}
+            {(currentID == 0 || user.employee.username === employeeData.username || user.isAdmin) ? <TextField variant="outlined" autoFocus margin="dense" id="password" label="Password" type="password" fullWidth onChange={(e)=> setEmployeeData({...employeeData, password: e.target.value})}/> : <></>}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
@@ -119,8 +119,8 @@ const Employees = () => {
           </form>
       </Dialog>
 
-      <h1>Employees</h1>
-        <Box sx={{border: '1px solid rgba(0, 0, 0, 0.12)', padding: '36px', marginTop: '20px' }}>
+      <Typography variant="lgm">Employees</Typography>
+        <Box className="tableBox">
           <div style={{ marginBottom: 8, display: 'flex', justifyContent: 'space-between' }}>
             <TextField name="search" varaint="outlined" style={{ width: 'calc(100% - 185px)', margin: 8 }} placeholder='Type to search...' value={search} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={handleKeyDown} />
             <Button variant="contained" style={{ height: '56px', margin: 8 }} onClick={handleClickOpen}>
@@ -139,12 +139,13 @@ const Employees = () => {
 
           {objects.map((employee) => (
             <div key={employee._id} className="tableRow">
-              <CardMedia style={{width: 32, height: 32, margin: 16, borderRadius: 180}} image={employee.avatar}/>
-              <div className='m8 tableRowDetails'><Typography variant="mdm">{employee.name}</Typography></div>
-              <div className='m8 tableRowDetails'><Typography variant="md">{employee.username}</Typography></div>
-              <div className='m8 tableRowDetails'><Typography variant="md">{employee.email}</Typography></div>
-              <div className='m8 tableRowDetails' style={{width: '100px'}}><Typography variant="md">{employee.phoneNumber}</Typography></div>
-              <div className='m8 tableRowDetails' style={{width: '100px', display: 'flex'}}><div className="actionButton" onClick={() => handleEditOpen(employee)}><EditOutlinedIcon/></div> <div className="actionButton delete" onClick={() => handleDelete(employee._id)}><DeleteOutlineOutlinedIcon/></div></div>
+              <CardMedia style={{width: '36px', height: '32px', margin: '0 16px', borderRadius: 360}} image={employee.avatar}/>
+              <div className='m4 tableRowDetails'><Typography variant="mdm">{employee.isAdmin && <p>admin-</p>}{employee.name}</Typography></div>
+              <div className='m4 tableRowDetails'><Typography variant="md">{employee.username}</Typography></div>
+              <div className='m4 tableRowDetails'><Typography variant="md">{employee.email}</Typography></div>
+              <div className='m4 tableRowDetails' style={{width: '100px'}}><Typography variant="md">{employee.phoneNumber}</Typography></div>
+              <div className='m4 tableRowDetails' style={{width: '100px', display: 'flex'}}><div className="actionButton" onClick={() => handleEditOpen(employee)}><EditOutlinedIcon/></div> 
+              {user.isAdmin && <div className="actionButton delete" onClick={() => handleDelete(employee._id)}><DeleteOutlineOutlinedIcon/></div>}</div>
             </div>
           ))}
           <Box sx={{paddingTop: 4}}>

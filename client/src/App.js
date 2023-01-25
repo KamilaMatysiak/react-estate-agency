@@ -20,6 +20,7 @@ import Employees from './components/pages/adminPanel/Employees';
 import Offers from './components/pages/adminPanel/Offers';
 import AdminEstates from './components/pages/adminPanel/AdminEstates';
 import Tenants from './components/pages/adminPanel/Tenants';
+import Search from "./components/pages/Estates/Search";
 
 
 function App() {
@@ -38,8 +39,9 @@ function App() {
             <Route path="/estates/apartmentForSale" element={<ApartmentSale/>}/>
             <Route path="/estates/apartmentForRent" element={<ApartmentRent/>}/>
             <Route path="/estates/houseForRent" element={<HomeRent/>}/>
+            <Route path='/estates/search' element={<Search/>}/>
           </Route>
-          <Route path="/estate" element={<Estate />}></Route>
+          <Route path="/estate/:id" element={<Estate />}></Route>
         </Route>
         <Route path='/login' element={user ? <Navigate to='/admin/'/> : <LoginPage/>}/>
         <Route path='/login/register' element={<DebugRegister />}/>

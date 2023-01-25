@@ -1,6 +1,10 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
-import placeholder from '../../data/images/estates/placeholder.png'
+import aboutImg from '../../data/images/about/aboutImg.png'
+import Maren from '../../data/images/about/MarenCulhane.png'
+import Marylin from '../../data/images/about/MarylinLevin.png'
+import Terry from '../../data/images/about/TerryDias.png'
+import Mango from '../../data/images/about/MartinMango.png'
 import theme from '../Theme'
 import { ThemeProvider } from '@mui/material/styles';
 
@@ -30,18 +34,34 @@ const About = () => {
                 Go and find perfect home <b>right now!</b>
             </Typography>
           </Box>
-          <img src={placeholder} alt="buildings"/>
+          <img src={aboutImg} style={{width: 360}} alt="buildings"/>
         </div>
+
         <div className='maxWidthLg' style={{margin: '32px auto'}}>
           <Typography variant="h3m">Meet our team</Typography>
         </div>
 
         <div className='maxWidthLg'>
-          <div className='spaceAroundFlex'>
-            <Box sx={{width: 250, height: 360, backgroundColor: "primary.light", color: 'text.white'}}>Placeholder</Box>
-            <Box sx={{width: 250, height: 360, backgroundColor: "primary.light", color: 'text.white'}}>Placeholder</Box>
-            <Box sx={{width: 250, height: 360, backgroundColor: "primary.light", color: 'text.white'}}>Placeholder</Box>
-            <Box sx={{width: 250, height: 360, backgroundColor: "primary.light", color: 'text.white'}}>Placeholder</Box>
+          <div className='spaceAroundFlex' >
+            <Box sx={{width: 225, color: 'text.white', textAlign: 'center'}}>
+              <img style={{width: '100%', margin: '0 0 16px 0', padding: 0}} src={Marylin}/>
+              <Typography variant='lgm'>Marylin Levin</Typography>
+            </Box>
+
+            <Box sx={{width: 225, color: 'text.white', textAlign: 'center'}}>
+              <img style={{width: '100%', margin: '0 0 16px 0', padding: 0}} src={Maren}/>
+              <Typography variant='lgm'>Maren Culhane</Typography>
+            </Box>
+
+            <Box sx={{width: 225, color: 'text.white', textAlign: 'center'}}>
+              <img style={{width: '100%', margin: '0 0 16px 0', padding: 0}} src={Terry}/>
+              <Typography variant='lgm'>Terry Dias</Typography>
+            </Box>
+
+            <Box sx={{width: 225, color: 'text.white', textAlign: 'center'}}>
+              <img style={{width: '100%', margin: '0 0 16px 0', padding: 0}} src={Mango}/>
+              <Typography variant='lgm'>Martin Mango</Typography>
+            </Box>
           </div>
         </div>
         <div style={{position: 'relative', width:'100%', zIndex:'-1'}}>

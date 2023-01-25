@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import Offer from "../models/Offers.js";
-import Estate from "../models/Estate.js";
 
 export const getOffers = async (req, res) => {
     const {page} = req.query;
@@ -36,7 +35,6 @@ export const getOffer = async (req, res) => {
         const {id} = req.params;
 
         const offer = await Offer.findById(id);
-        console.table(offer);
 
         res.status(200).json({data: offer});
     } catch (error) {
@@ -46,7 +44,12 @@ export const getOffer = async (req, res) => {
 
 export const createOffer = async (req, res) => {
     const offer = req.body;
-    var objectId = mongoose.Types.ObjectId(offer.estateId)
+    const objectId = null;
+
+    if (offer.estateId) {
+        objectId = mongoose.Types.ObjectId(offer.estateId)
+    }
+    
     const newOffer = new Offer({...offer, estateId: objectId});
     try {
         await newOffer.save();

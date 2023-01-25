@@ -31,7 +31,6 @@ const Tenants = () => {
   const { objects } = useSelector((state) => state.objects);
 
   useEffect(() => {
-    console.log(Number(page));
     dispatch(getTenants(page));
   }, [currentID, dispatch])
 
@@ -91,7 +90,7 @@ const Tenants = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container sx={{marginTop: 8}}>
+      <Container  maxWidth="lg" sx={{ marginTop: '32px' }}>
 
         <Dialog open={open} onClose={clear} PaperProps={{ style: { background: '#fff' } }}>
           <form autoComplete="off" noValidate onSubmit={handleSubmit}>
@@ -110,8 +109,8 @@ const Tenants = () => {
         </Dialog>
 
 
-        <h1>Tenants</h1>
-        <Box sx={{border: '1px solid rgba(0, 0, 0, 0.12)', padding: '36px', marginTop: '20px' }}>
+        <Typography variant="lgm">Tenants</Typography>
+        <Box className="tableBox">
           <div style={{ marginBottom: 8, display: 'flex', justifyContent: 'space-between' }}>
             <TextField name="search" varaint="outlined" style={{ width: 'calc(100% - 170px)', margin: 8 }} placeholder='Type to search...' value={search} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={handleKeyDown} />
             <Button variant="contained" style={{ height: '56px', margin: 8 }} onClick={handleClickOpen}>
@@ -128,11 +127,11 @@ const Tenants = () => {
         
           {objects.map((tenant) => (
             <div key={tenant._id} className="tableRow">
-              <div className='m8 tableRowDetails'><Typography variant="mdm">{tenant.name}</Typography></div>
-              <div className='m8 tableRowDetails'><Typography variant="md">{tenant.email}</Typography></div>
-              <div className='m8 tableRowDetails' style={{maxWidth: '100px'}}><Typography variant="mdm">{tenant.phoneNumber}</Typography></div>
-              <div className='m8 tableRowDetails'><Typography variant="md">{tenant.terminationDate}</Typography></div>
-              <div className='m8 tableRowDetails' style={{width: '100px', display: 'flex'}}><div className="actionButton" onClick={() => handleEditOpen(tenant)}><EditOutlinedIcon/></div> <div className="actionButton delete" onClick={() => handleDelete(tenant._id)}><DeleteOutlineOutlinedIcon/></div></div>
+              <div className='m4 tableRowDetails'><Typography variant="mdm">{tenant.name}</Typography></div>
+              <div className='m4 tableRowDetails'><Typography variant="md">{tenant.email}</Typography></div>
+              <div className='m4 tableRowDetails' style={{maxWidth: '100px'}}><Typography variant="mdm">{tenant.phoneNumber}</Typography></div>
+              <div className='m4 tableRowDetails'><Typography variant="md">{tenant.terminationDate}</Typography></div>
+              <div className='m4 tableRowDetails' style={{width: '100px', display: 'flex'}}><div className="actionButton" onClick={() => handleEditOpen(tenant)}><EditOutlinedIcon/></div> <div className="actionButton delete" onClick={() => handleDelete(tenant._id)}><DeleteOutlineOutlinedIcon/></div></div>
             </div>
           ))}
           <Box sx={{paddingTop: 4}}>

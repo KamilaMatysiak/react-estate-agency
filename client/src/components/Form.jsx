@@ -18,16 +18,10 @@ const Form = ({estate}) => {
 
   const onSubmit = (d, e) => {
     e.preventDefault();
-    d.estateId=estate || 1;
-    console.log(d);
-    console.log(offerData)
-    dispatch(createOffer({ ...d }));
-    setOfferData({
-      name: '',
-      email: '',
-      message: '',
-      estateId: ''
-    })
+
+    if(estate) d.estateId=estate;
+    else d.estateId = null;
+    dispatch(createOffer({...d}));
     reset();
   }
 
