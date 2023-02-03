@@ -18,19 +18,19 @@ const HomeRent = () => {
 
   return (
     <Box>
-    <Grid
+      <Grid
         container
         direction="row"
-        spacing={5}
         alignItems="stretch"
-        maxWidth='85vw'
+        height='100%'
+        maxWidth='80vw'
         margin={2}
       >
 
       {estates.map((estate) => (
               <>
                { estate.type == "House" && estate.status == "For Rent"
-                && <ButtonBase onClick={() => openEstate(estate._id)}><EstateCard key={estate._id} estate={estate}/></ButtonBase>}</>
+                && <Grid item xs={12} md={8} lg={4}><ButtonBase onClick={() => openEstate(estate._id)}><EstateCard key={estate._id} estate={estate}/></ButtonBase></Grid>}</>
             ))}
 
     </Grid>

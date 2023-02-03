@@ -14,17 +14,17 @@ const Search = () => {
   return (
     <Box>
          <Typography variant="h3m">{state.data.data.length != 0 ? 'You may like these...' : "i'm afraid we don't have what you're looking for :("}</Typography>
-      <Grid
-          container
-          direction="row"
-          spacing={5}
-          alignItems="stretch"
-          maxWidth='85vw'
-          margin={2}
-        >
-
+         <Grid
+            container
+            direction="row"
+            alignItems="stretch"
+            height='100%'
+            maxWidth='80vw'
+            margin={2}
+          >
         {state.data.data.map((estate) => (
-                <>{!estate.message && <ButtonBase onClick={() => openEstate(estate._id)}><EstateCard key={estate._id} estate={estate}/></ButtonBase>}</>
+                <>{!estate.message 
+                  && <Grid item xs={12} md={8} lg={4}><ButtonBase onClick={() => openEstate(estate._id)}><EstateCard key={estate._id} estate={estate}/></ButtonBase></Grid>}</>
               ))}
       </Grid>
     </Box>

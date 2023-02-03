@@ -20,8 +20,8 @@ const EstateCard = ({estate}) => {
                 alt="green iguana"
             />
             <CardContent>
-                <div className='columnFlex flexWrap' style={{alignItems: 'flex-start', marginLeft: '8px'}}>
-                    <Typography margin="2px" variant="xlm">{estate.name}</Typography>
+                <div className='columnFlex flexWrap' style={{alignItems: 'flex-start', textAlign: 'left', maxWidth: '100%'}}>
+                    <Typography variant="xlm" sx={{py: 1}}>{estate.name}</Typography>
                     <div className='centerRowFlex' style={{marginBottom: "8px"}}> 
                         <LocationOnOutlined fontSize="small" color="text.secondaryBlack"/> 
                         <Typography color="text.secondaryBlack" variant="sm">{estate.estateLocalization.street}, {estate.estateLocalization.city}</Typography>
