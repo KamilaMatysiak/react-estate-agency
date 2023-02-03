@@ -23,6 +23,7 @@ const Employees = () => {
   const searchQuery = query.get('searchQuery');
   const [search, setSearch] = useState('');
   const [open, setOpen] = useState(false);
+  const [editPassword, setEditPassword] = useState(false);
   const [currentID, setCurrentID] = useState(0);
   const [employeeData, setEmployeeData] = useState({
     avatar: '',
@@ -48,6 +49,7 @@ const Employees = () => {
     setCurrentID(e._id);
     setEmployeeData({ ...e});
     setOpen(true);
+    console.log(employeeData.password);
   };
 
   const handleClose = () => {
@@ -61,6 +63,8 @@ const Employees = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("słyszysz mnie?");
+    console.log(employeeData.password);
 
     if(currentID !== 0) {
       dispatch(updateEmployee(currentID, {...employeeData}));
@@ -76,6 +80,7 @@ const Employees = () => {
   const clear = () => {
     setEmployeeData({ avatar: '', username: '', name: '', email: '', phoneNumber: '', password: '', isAdmin: false});
     setCurrentID(0);
+    setEditPassword(false);
   }
 
   const handleKeyDown = (e) => {
@@ -105,11 +110,12 @@ const Employees = () => {
               <Checkbox variant="outlined" autoFocus margin="dense" id="isAdmin" checked={employeeData.isAdmin} onChange={(e)=> setEmployeeData({...employeeData, isAdmin: e.target.checked})}/>
             } label="Admin" /></div>}
             <FileBase type="file" multiple={false} onDone={({base64}) => setEmployeeData({...employeeData, avatar: base64})}/>
-            <TextField variant="outlined" autoFocus margin="dense" id="username" label="Username" type="text" fullWidth value={employeeData.username} onChange={(e)=> setEmployeeData({...employeeData, username: e.target.value})}/>
+            <TextField variant="outlined" autoFocus margin="dense" id="username" label="Username" type="text" disabled={!user.isAdmin} fullWidth value={employeeData.username} onChange={(e)=> setEmployeeData({...employeeData, username: e.target.value})}/>
             <TextField variant="outlined" autoFocus margin="dense" id="name" label="Name" type="text" fullWidth value={employeeData.name} onChange={(e)=> setEmployeeData({...employeeData, name: e.target.value})}/>
             <TextField variant="outlined" autoFocus margin="dense" id="email" label="Email Address" type="email" fullWidth value={employeeData.email} onChange={(e)=> setEmployeeData({...employeeData, email: e.target.value})}/>
             <TextField variant="outlined" autoFocus margin="dense" id="phoneNumber" label="Phone Number" type="text" fullWidth value={employeeData.phoneNumber} onChange={(e)=> setEmployeeData({...employeeData, phoneNumber: e.target.value})}/>
-            {(currentID == 0 || user.employee.username === employeeData.username || user.isAdmin) ? <TextField variant="outlined" autoFocus margin="dense" id="password" label="Password" type="password" fullWidth onChange={(e)=> setEmployeeData({...employeeData, password: e.target.value})}/> : <></>}
+            <Button variant="outlined" onClick={() => setEditPassword(!editPassword)}>Change Password</Button>
+            {(editPassword) ? <TextField variant="outlined" autoFocus margin="dense" id="password" label="Password" type="password" fullWidth onChange={(e)=> setEmployeeData({...employeeData, password: e.target.value})}/> : <></>}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>

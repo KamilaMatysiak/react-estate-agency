@@ -65,8 +65,9 @@ const AdminEstates = () => {
   const employees = useSelector((state) => state.objects.objects);
   
   useEffect(() => {
-    dispatch(getEstates(page));
     dispatch(getAllEmployees());
+    dispatch(getEstates(page));
+
   }, [dispatch])
 
 

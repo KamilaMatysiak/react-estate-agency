@@ -13,7 +13,7 @@ export const getEstates = async (req, res) => {
 
         const total = await Estate.countDocuments({});
         const estates = await Estate.find().sort({_id: -1}).limit(LIMIT).skip(startIndex);
-
+        console.log(Number(page), Math.ceil(total/LIMIT));
         res.status(200).json({ data: estates, currentPage: Number(page), numberOfPages: Math.ceil(total/LIMIT)});
     } catch (error) {
         res.status(404).json({ message: error.message })
